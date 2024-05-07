@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="173c179a-23d5-48c7-b69c-40b2f537f40d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="wf"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM wf23.invoice]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="doc_dt" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="doc_dt"/>
+		<property name="com.jaspersoft.studio.field.label" value="doc_dt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="doc_no2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="doc_no2"/>
+		<property name="com.jaspersoft.studio.field.label" value="doc_no2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="vch_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="vch_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="vch_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="party_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="party_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="party_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="address"/>
+		<property name="com.jaspersoft.studio.field.label" value="address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="total_qty" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="doc_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="doc_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="doc_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="dest_branch" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dest_branch"/>
+		<property name="com.jaspersoft.studio.field.label" value="dest_branch"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="source_stn" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="source_stn"/>
+		<property name="com.jaspersoft.studio.field.label" value="source_stn"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="consignee_dest" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="consignee_dest"/>
+		<property name="com.jaspersoft.studio.field.label" value="consignee_dest"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="Consignee_add" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Consignee_add"/>
+		<property name="com.jaspersoft.studio.field.label" value="Consignee_add"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="consigner_mob_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="consigner_mob_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="consigner_mob_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="Consignee_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Consignee_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Consignee_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="consignee_mob_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="consignee_mob_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="consignee_mob_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="ser_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ser_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="ser_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="teriff_location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="teriff_location"/>
+		<property name="com.jaspersoft.studio.field.label" value="teriff_location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="gross_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="gross_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="gross_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="net_amt2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="net_amt2"/>
+		<property name="com.jaspersoft.studio.field.label" value="net_amt2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="time"/>
+		<property name="com.jaspersoft.studio.field.label" value="time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="cust_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cust_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="cust_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="user_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="user_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="user_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="dec_val" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dec_val"/>
+		<property name="com.jaspersoft.studio.field.label" value="dec_val"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="dec_per" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dec_per"/>
+		<property name="com.jaspersoft.studio.field.label" value="dec_per"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="Dec_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Dec_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="Dec_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="location_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="location_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="location_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="no_of_pieces" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_of_pieces"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_of_pieces"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="credit_acc" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="credit_acc"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit_acc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="weight" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="weight"/>
+		<property name="com.jaspersoft.studio.field.label" value="weight"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="tariff_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tariff_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="tariff_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="net_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="net_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="net_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="Prefix" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Prefix"/>
+		<property name="com.jaspersoft.studio.field.label" value="Prefix"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="CNote_No" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CNote_No"/>
+		<property name="com.jaspersoft.studio.field.label" value="CNote_No"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="party_label" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="party_label"/>
+		<property name="com.jaspersoft.studio.field.label" value="party_label"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="batch_no2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="batch_no2"/>
+		<property name="com.jaspersoft.studio.field.label" value="batch_no2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="product_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="product_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="product_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="qty2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qty2"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="upload" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="upload"/>
+		<property name="com.jaspersoft.studio.field.label" value="upload"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="branch_forwarding" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="branch_forwarding"/>
+		<property name="com.jaspersoft.studio.field.label" value="branch_forwarding"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="serv_tax" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="serv_tax"/>
+		<property name="com.jaspersoft.studio.field.label" value="serv_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="fuel_tax" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="fuel_tax"/>
+		<property name="com.jaspersoft.studio.field.label" value="fuel_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="serv_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="serv_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="serv_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="fuel_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="fuel_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="fuel_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="od_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="od_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="od_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="edcess_per" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="edcess_per"/>
+		<property name="com.jaspersoft.studio.field.label" value="edcess_per"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="shess_per" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="shess_per"/>
+		<property name="com.jaspersoft.studio.field.label" value="shess_per"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="shecess_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="shecess_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="shecess_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="educess_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="educess_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="educess_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="rpt_netamt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="rpt_netamt"/>
+		<property name="com.jaspersoft.studio.field.label" value="rpt_netamt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="docket_charges" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="docket_charges"/>
+		<property name="com.jaspersoft.studio.field.label" value="docket_charges"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="ref_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ref_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="ref_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="cnt_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cnt_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="cnt_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="orgin_fld" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="orgin_fld"/>
+		<property name="com.jaspersoft.studio.field.label" value="orgin_fld"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="system_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="system_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="system_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="consigner_email_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="consigner_email_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="consigner_email_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="batch_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="batch_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="batch_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="card_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="card_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="card_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="dummy" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dummy"/>
+		<property name="com.jaspersoft.studio.field.label" value="dummy"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="location_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="location_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="location_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="upload_time" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="upload_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="upload_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="invoice_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="invoice_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="invoice_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="cgst" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cgst"/>
+		<property name="com.jaspersoft.studio.field.label" value="cgst"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="sgst" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sgst"/>
+		<property name="com.jaspersoft.studio.field.label" value="sgst"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="cgst_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cgst_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="cgst_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="sgst_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sgst_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="sgst_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="cst_cal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cst_cal"/>
+		<property name="com.jaspersoft.studio.field.label" value="cst_cal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="gst_cal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="gst_cal"/>
+		<property name="com.jaspersoft.studio.field.label" value="gst_cal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="igst_cal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="igst_cal"/>
+		<property name="com.jaspersoft.studio.field.label" value="igst_cal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="igst" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="igst"/>
+		<property name="com.jaspersoft.studio.field.label" value="igst"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="igst_amt" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="igst_amt"/>
+		<property name="com.jaspersoft.studio.field.label" value="igst_amt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="cgst_dummy" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cgst_dummy"/>
+		<property name="com.jaspersoft.studio.field.label" value="cgst_dummy"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="sgst_dummy" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sgst_dummy"/>
+		<property name="com.jaspersoft.studio.field.label" value="sgst_dummy"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<field name="igst_dummy" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="igst_dummy"/>
+		<property name="com.jaspersoft.studio.field.label" value="igst_dummy"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="invoice"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="230" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="559" height="30" uuid="f7b20aad-39d2-47a9-96e7-fc740e7a24c7"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TAX INVOICE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="559" height="30" uuid="e5ff5e8b-9b87-46e1-bdce-b298d2e6880a"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["WORLD FIRST"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-2" y="60" width="559" height="50" uuid="223f20f9-2f4c-4db2-ae38-12daa7992a3d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Website: www.worldfirst.in"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="110" width="280" height="120" uuid="646edb80-d2be-42c0-9a78-39278ff3fdb1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["To,"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="110" width="56" height="20" uuid="39fa6cf4-a282-4024-ae65-ee614f7aba90"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["From Dt:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="110" width="56" height="20" uuid="d44e0046-74df-4793-9e76-4c2965715def"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["To Dt:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="130" width="96" height="20" uuid="024304e7-d180-45f7-bc09-27b6e70ebc0e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Invoice No :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="150" width="96" height="20" uuid="4a92ff6e-0b6c-4e98-ab50-b0f485968f20"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Invoice Date :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="170" width="96" height="20" uuid="25110086-1642-476b-af6b-db4ab5c9a28e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GST No :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="190" width="96" height="20" uuid="4ca4cadd-949b-42b4-b160-9b2d7eb66e90"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PAN No :"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="210" width="156" height="20" uuid="68362688-b789-49ee-9d11-d8abf67c2569"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Service Accounting Code :"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="49" height="30" uuid="4927e25f-6fd2-4389-973b-3ca57624f526">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d7a821a-bfdc-4817-8a82-198de9cb1b07"/>
+				</reportElement>
+				<box padding="0">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="0" width="46" height="30" uuid="f7482cda-4eb6-4d89-8b61-5065b3b1fc35">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5175488a-8b3c-4f0e-9464-06ecc585e41a"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[doc_dt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="46" height="30" uuid="0e429e55-5fad-49b9-9f57-17ce8de5d1a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b242f5a-4f27-4cd4-9a34-d5dccd0cb9b0"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[doc_no2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="0" width="46" height="30" uuid="38feea56-a361-4b6e-87b9-f572995f77d6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a748646d-3808-4e1c-adb5-4a2de8931682"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[vch_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="0" width="46" height="30" uuid="d50bff70-9517-454b-8785-91c03552ce14">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c865b92-ecea-4f9f-9057-48a793725b2e"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[party_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="0" width="46" height="30" uuid="2a4b60ea-2196-4fa7-904e-0decb452a160">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="153f42fd-32fe-4bb1-9ab7-26111a0fcb7a"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="0" width="46" height="30" uuid="18f2a1cc-24f3-492f-b3d1-561d21130648">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="904c8786-2438-4aac-8acf-999b9576b8e1"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[total_qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="46" height="30" uuid="d1ee2643-f5fd-49e7-8693-6200f0baeae6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d37629d2-587a-4e7d-bfe0-a3a2b1bddfb3"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[doc_no]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="0" width="46" height="30" uuid="e6a50922-f863-4e26-96b8-61ac6edeafee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1a0dd12-7fc7-4bbd-984d-299f0e5abef0"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[dest_branch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="0" width="46" height="30" uuid="60c87d70-e893-4975-9ba3-262809ee054e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c7c8312-fe0b-4edc-ba47-2ff29fb5cf75"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[source_stn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="513" y="0" width="46" height="30" uuid="5b2634bf-6c5e-42d7-9cd2-ede17ea39ec1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a203815e-7af8-4d4c-ad04-90021ef8868e"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[consignee_dest]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="564" y="0" width="46" height="30" uuid="7a3fc792-5f16-4822-9e66-ea6045ad61ff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b4cc67d-1dc7-4181-8ff8-d36d8b5f1c53"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[Consignee_add]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="49" height="30" uuid="76dbe416-afc6-48c1-a9b2-a2487d308246">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d7a821a-bfdc-4817-8a82-198de9cb1b07"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="0" width="46" height="30" uuid="733f29d8-7bc5-40b5-889a-7ff044dd565c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5175488a-8b3c-4f0e-9464-06ecc585e41a"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{doc_dt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="0" width="46" height="30" uuid="f9e63dcb-c7f6-4eed-813d-7731828f11cc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b242f5a-4f27-4cd4-9a34-d5dccd0cb9b0"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{doc_no2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="0" width="46" height="30" uuid="2817714f-d28a-42e0-a7b9-fde77571453a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a748646d-3808-4e1c-adb5-4a2de8931682"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{vch_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="0" width="46" height="30" uuid="70379a9a-9650-4ffc-a880-c4696eca5573">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6c865b92-ecea-4f9f-9057-48a793725b2e"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{party_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="0" width="46" height="30" uuid="876b0b32-75b3-453e-90f2-1bac8789e853">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="153f42fd-32fe-4bb1-9ab7-26111a0fcb7a"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="0" width="46" height="30" uuid="4da6541c-eeaf-4584-9e56-bd8d5bc8254c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="904c8786-2438-4aac-8acf-999b9576b8e1"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{total_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="46" height="30" uuid="f4550321-6d43-43ae-a208-799389644d42">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d37629d2-587a-4e7d-bfe0-a3a2b1bddfb3"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{doc_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="0" width="46" height="30" uuid="eb6bfb89-0e43-4570-bf67-1bf25c152455">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1a0dd12-7fc7-4bbd-984d-299f0e5abef0"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{dest_branch}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="46" height="30" uuid="f7df8d2e-92de-4e8b-aef6-ffe551d51f14">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c7c8312-fe0b-4edc-ba47-2ff29fb5cf75"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{source_stn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="513" y="0" width="46" height="30" uuid="5e5d0a7d-f1eb-484c-a3d6-439a02b27938">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a203815e-7af8-4d4c-ad04-90021ef8868e"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{consignee_dest}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="564" y="0" width="46" height="30" uuid="51f870c0-c5ac-49bd-9a1c-4670854d3c47">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b4cc67d-1dc7-4181-8ff8-d36d8b5f1c53"/>
+				</reportElement>
+				<box padding="1">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Consignee_add}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

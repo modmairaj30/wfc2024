@@ -1,0 +1,88 @@
+USE `wg15`;
+CREATE  OR REPLACE VIEW `tariff_view1` AS 
+select m.id, m.from_weight, m.to_weight, m.party_id, m.mode_consign, d.base_id, d.rate, d.Add_qty, d.Add_rate,d.location_id from credit_teriffmaster m , credit_teriffmaster_detail d where m.id = d.base_id;
+ALTER TABLE `wf23`.`invoice` 
+ADD COLUMN `stock_id` INT NULL ;
+
+CREATE TABLE `synchronizeddata` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(255) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  `upload` varchar(255) DEFAULT NULL,
+  `download` varchar(255) DEFAULT NULL,
+  `uploadflag` varchar(255) DEFAULT NULL,
+  `tbl_updownload` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+ALTER TABLE `branch_master`
+ADD COLUMN `created_by` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `updated_by` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `created_date` DATE NULL DEFAULT NULL ,
+ADD COLUMN `updated_date` DATE NULL DEFAULT NULL ;
+
+
+ALTER TABLE `tbl_location`
+ADD COLUMN `created_by` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `updated_by` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `created_date` DATE NULL DEFAULT NULL ,
+ADD COLUMN `updated_date` DATE NULL DEFAULT NULL ;
+
+ALTER TABLE `tbl_party_info`
+ ADD COLUMN `created_by` VARCHAR(45) NULL DEFAULT NULL ,
+ ADD COLUMN `updated_by` VARCHAR(45) NULL DEFAULT NULL ,
+ ADD COLUMN `created_date` DATE NULL DEFAULT NULL ,
+ ADD COLUMN `updated_date` DATE NULL DEFAULT NULL;
+ 
+ ALTER TABLE `wf24`.`tbl_party_info` 
+CHANGE COLUMN `disc` `declaration` DECIMAL(30,2) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `wf24`.`invoice` 
+ADD COLUMN `docket_charges` DECIMAL(10,2) NULL AFTER `upload_flag`;
+
+ALTER TABLE `wf24`.`invoice` 
+ADD COLUMN `ref_no` VARCHAR(45) NULL AFTER `docket_charges`;
+
+ALTER TABLE `wf24`.`invoice` 
+ADD COLUMN `stock_id` INT NULL AFTER `ref_no`;
+
+ALTER TABLE `wf24`.`tbl_stock_info` 
+ADD COLUMN `screen_id` INT NULL AFTER `fld_cost_centre`;
+INSERT INTO `wf24`.`tbl_autonumber_location` (`txn_id`, `prefix`, `number`, `suffix`, `location_id`) VALUES ('1095', 'SC-', '1', '-23', '1');
+
+ALTER TABLE `wf24`.`tbl_stock_info` 
+ADD COLUMN `user_id` INT NULL AFTER `screen_id`;
+
+ALTER TABLE tbl_location
+CHANGE cont_no ph_no varchar(100) NULL DEFAULT NULL;
+
+ALTER TABLE tbl_location
+ADD COLUMN `pincode` VARCHAR(45) NULL DEFAULT NULL;
+
+ALTER TABLE `wf24`.`tbl_location` 
+AUTO_INCREMENT = 103 ;
+
+ALTER TABLE `wf24`.`tbl_party_info` 
+AUTO_INCREMENT = 6113 ;
+
+ALTER TABLE `branch_master`
+ADD COLUMN `created_by` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `updated_by` VARCHAR(45) NULL DEFAULT NULL ,
+ADD COLUMN `created_date` DATE NULL DEFAULT NULL ,
+ADD COLUMN `updated_date` DATE NULL DEFAULT NULL ;
+
+INSERT INTO `wf2520231228`.`roles` (`id`, `name`, `rolescol`) VALUES ('4', 'billing', 'Y');
+
+INSERT INTO `wf2520231228`.`screen_operation_role_map` (`screen_id`, `role_id`, `operation_id`, `enabled`) VALUES ('21', '4', '1', 'Y');
+
+UPDATE `wf2520231228`.`users` SET `role` = '4', `role_id` = '4' WHERE (`id` = '9');
+
+ALTER TABLE `credit_teriffmaster`
+ADD COLUMN `state` VARCHAR(45) NULL DEFAULT NULL;
+
+
+
