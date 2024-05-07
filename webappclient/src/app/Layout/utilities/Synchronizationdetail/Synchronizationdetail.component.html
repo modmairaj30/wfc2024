@@ -1,0 +1,14 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="2">
+     <a ngbNavLink >Synchronization
+     </a>
+     <ng-template ngbNavContent>
+     <app-Synchronizationentry> </app-Synchronizationentry>
+     </ng-template>
+   </li>
+   
+ </ul>
+ <div [ngbNavOutlet]="nav" class="mt-2"></div>
+ 
+ 
+ 

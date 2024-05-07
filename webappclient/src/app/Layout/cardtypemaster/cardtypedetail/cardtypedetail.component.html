@@ -1,0 +1,16 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" (click)="tabChange()" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Card Type</a>
+    <ng-template ngbNavContent>
+      <app-cardtypeentry [(cardtype)]="cardType"></app-cardtypeentry>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Card Type@History</a>
+    <ng-template ngbNavContent>
+      <app-cardtypehistory (editCardTypeEntry)="editCardType($event)"></app-cardtypehistory>
+    </ng-template>
+  </li>
+
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

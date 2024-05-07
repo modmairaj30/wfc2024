@@ -1,0 +1,18 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink (click)="setTab()">Billing Print</a>
+    <ng-template ngbNavContent>
+    <app-billingprintentry [(invoice)]="invoice" [(editmod)]="editmod" (editEntry)="editEntry($event)"></app-billingprintentry>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink (click)="setTab()">Billing @History</a>
+    <ng-template ngbNavContent>
+    <app-billingprinthistory (editTitleMasterentry)="editTitleMasterentry($event)"></app-billingprinthistory>
+    </ng-template>
+  </li>
+  
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+

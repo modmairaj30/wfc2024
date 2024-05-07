@@ -1,0 +1,106 @@
+<div>
+    <div class="card">
+
+        <p-table [resizableColumns]="true" styleClass="p-datatable-gridlines" autoLayout="true"
+            (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)" id="dt" columnResizeMode="expand" #dt
+            [value]="content" [rows]="10" [paginator]="true" [globalFilterFields]="['locationId','modeConsign']"
+            [rowHover]="true" dataKey="id" selectionMode="" [(selection)]="selectedRowData"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (click)="resetIndex($event)"
+            [showCurrentPageReport]="true" [scrollable]="true" [(first)]="first" scrollHeight="300px">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <div class="d-flex">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search..." />
+                    </span>
+
+                    <div class="p-toolbar-group-right">
+                        <i class="pi pi-ellipsis-v"></i>
+                        <p-dropdown   [options]="cols" [(ngModel)]="searchCriteria.key" optionValue="field" optionLabel="header"></p-dropdown>
+                        <p-dropdown   [options]="searchs" [(ngModel)]="searchCriteria.operation" optionValue="field" optionLabel="header"></p-dropdown>
+                        <input [style]="{minWidth: '90px'}" pInputText  type="text"  [(ngModel)]="searchCriteria.value"   placeholder="Value..." />
+                        <button  class="p-button-worn p-mr-2" icon="pi pi-search" pButton pRipple
+                        label="" (click)="find()"></button>
+                    </div>
+
+                </div>
+
+                    <div style="float:right;">
+                        <button style="margin-right:2px" class="p-button-help p-mr-2" icon="pi pi-file-pdf" pButton
+                            pRipple label="Pdf" (click)="openPDF()"></button>
+                        <button style="margin-right:2px" pButton pRipple label="Excel" icon="pi pi-file-excel"
+                            (click)="exportExcel()" class="p-button-success p-mr-2"></button>
+                        <button pButton pRipple label="Print" icon="pi pi-print" class="p-button-info p-mr-2"
+                            (click)="print()"></button>
+                    </div>
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th style="width: 10rem" pSortableColumn="locationId" pResizableColumn>locationId <p-sortIcon
+                            field="locationId">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 10rem" pSortableColumn="modeConsign" pResizableColumn>modeConsign <p-sortIcon
+                            field="modeConsign">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 10rem" pSortableColumn="type" pResizableColumn>type <p-sortIcon field="type">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 10rem" pSortableColumn="partyId" pResizableColumn>Customer <p-sortIcon
+                            field="partyId">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 10rem" pResizableColumn>From Weight </th>
+                    <th style="width: 10rem">To Weight </th>
+
+                    <th style="width: 10rem" pResizableColumn>Doc Date </th>
+                    <th style="width: 10rem" pResizableColumn>Doc Time </th>
+                    <th style="width: 10rem" pSortableColumn="userId" pResizableColumn>User <p-sortIcon field="userId">
+                        </p-sortIcon>
+                    </th>
+
+
+                    <!--th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th-->
+                    <th style="width: 3rem"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td style="width: 3rem">
+                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td style="width: 10rem">{{product.locationId}}</td>
+                    <td style="width: 10rem">{{product.modeConsign}}</td>
+                    <td style="width: 10rem">{{product.type}}</td>
+                    <td style="width: 10rem">{{product.partyId}}</td>
+                    <td style="width: 10rem">{{product.fromWeight}}</td>
+                    <td style="width: 10rem">{{product.toWeight}}</td>
+                    <td style="width: 10rem">{{product.docDt}}</td>
+                    <td style="width: 10rem">{{product.docTime}}</td>
+                    <td style="width: 10rem">{{product.userId}}</td>
+                    <td style="width: 3rem">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="editProduct(product)"></button>
+                        <!--button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button-->
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+    <!--
+    <ng-template #loadingTemplate><h3>Please Wait,Loading...</h3></ng-template>
+    <ngx-loading [show]="loading" [config]="{backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '0px',
+    primaryColour: '#3a73b8', secondaryColour: '#3a73b8', tertiaryColour: '#3a73b8' }" [template]="loadingTemplate"></ngx-loading>
+    -->
+    <ngx-loading [show]="loading" [config]="{backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '0px',
+    primaryColour: '#3a73b8', secondaryColour: '#3a73b8', tertiaryColour: '#3a73b8' }" ></ngx-loading>
+</div>

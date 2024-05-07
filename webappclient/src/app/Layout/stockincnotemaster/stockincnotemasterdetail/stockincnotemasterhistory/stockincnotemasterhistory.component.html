@@ -1,0 +1,75 @@
+<div>
+    <div class="card">
+
+        <p-table [resizableColumns]="true" styleClass="p-datatable-gridlines" autoLayout="true"
+            (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)" id="dt" columnResizeMode="expand" #dt
+            [value]="content" [rows]="100" [paginator]="true" [globalFilterFields]="['cardName']" [rowHover]="true"
+            dataKey="id" selectionMode="" [(selection)]="selectedRowData"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (click)="resetIndex($event)"
+            [showCurrentPageReport]="true" [scrollable]="true" [(first)]="first" scrollHeight="400px">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search..." />
+                    </span>
+                    <div style="float:right;">
+                        <button style="margin-right:2px" class="p-button-help p-mr-2" icon="pi pi-file-pdf" pButton
+                            pRipple label="Pdf" (click)="openPDF()"></button>
+                        <button style="margin-right:2px" pButton pRipple label="Excel" icon="pi pi-file-excel"
+                            (click)="exportExcel()" class="p-button-success p-mr-2"></button>
+                        <button pButton pRipple label="Print" icon="pi pi-print" class="p-button-info p-mr-2"
+                            (click)="print()"></button>
+                    </div>
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="partyCode" pResizableColumn>PartyCode <p-sortIcon field="partyCode">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="partyName" pResizableColumn>PartyName <p-sortIcon field="partyName">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="partylabel" pResizableColumn>Partylabel <p-sortIcon field="partylabel">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="phno" pResizableColumn>Phone <p-sortIcon field="phno"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="reffBy" pResizableColumn>RefferedBy <p-sortIcon field="reffBy"></p-sortIcon>
+                    </th>
+                    <th pResizableColumn>Address1 </th>
+                    <th pResizableColumn>Address2 </th>
+                    <!--th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th-->
+                    <th style="width: 3rem"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td style="width: 3rem">
+                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td>{{product.partyCode}}</td>
+                    <td>{{product.partyName}}</td>
+                    <td>{{product.partylabel}}</td>
+                    <td>{{product.phno}}</td>
+                    <td>{{product.reffBy}}</td>
+                    <td pTooltip="{{product.address1}}">{{product.address1}}</td>
+                    <td pTooltip="{{product.address22}}">{{product.address22}}</td>
+                    <td style="width: 3rem">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="editProduct(product)"></button>
+                        <!--button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button-->
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+
+</div>

@@ -1,0 +1,40 @@
+<div class="card">
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+              
+            <span><b>  Select Table </b> </span>
+            <p-autoComplete [minLength]="1" #fe name="reportName" [(ngModel)]="reportInput.reportName"
+                #localOS="ngModel" required [suggestions]="filteredEmpList2"
+                (onSelect)="selectedAutoCompletedValue($event);" (completeMethod)="filterEmpList2($event)"
+                field="table_name" [dropdown]="true" [multiple]="false">
+                <ng-template let-branch pTemplate="item">
+                    <div class="branch-item">
+                        <div>{{branch.table_name}}</div>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+            <div class="col-sm-10 form-group row">
+                <div class="col-sm-12">
+                 <!--   <p-fileUpload 
+                    name="myfile[]" 
+                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
+                    showUploadButton="false" 
+                    showCancelButton="false" 
+                    (uploadHandler)="onFileSelected($event)"
+                    ></p-fileUpload>-->  
+                    <input type="file" class="form-control" (change)="onChange($event)"  accept=".xlsx">   
+                  
+                <button pButton pRipple  label="Save(F2)"    (click)="save()" icon="pi pi-check" ></button>
+                </div>
+              </div>
+           
+        </div>
+        
+       
+    </p-toolbar>
+    
+    <ngx-loading [show]="loading" [config]="{backdropBackgroundColour: 'rgba(255,255,255,0.5)', backdropBorderRadius: '0px',
+        primaryColour: '#3a73b8', secondaryColour: '#3a73b8', tertiaryColour: '#3a73b8' }"></ngx-loading>
+    <p-toast position="bottom-center" key="success"></p-toast>
+    <p-toast position="bottom-center" key="error"></p-toast>
+</div>

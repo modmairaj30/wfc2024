@@ -1,0 +1,131 @@
+<div>
+  <form autocomplete="off"  #formForm="ngForm" (ngSubmit)="formForm.form.valid && save()" novalidate>
+    <p-toolbar [style]="{width: '95%',padding:'2px'}">
+      <div class="p-toolbar-group-left ">
+      </div>
+      <div class="p-toolbar-group-right">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="submit" label="Save"  icon="pi pi-check"
+              iconPos="left"></button>
+          </div>
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="reset" label="Reset" (click)="save()" icon="pi pi-undo"
+              iconPos="left"></button>
+          </div>
+        </div>
+      </div>
+    </p-toolbar>
+
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Branch Name</label>
+          <div class="col-sm-8">
+            <p-autoComplete [minLength]="1" name="location_id" [(ngModel)]="stockincnotemaster.location_id"
+              [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)" field="emp_name"
+              [dropdown]="true">
+              <ng-template let-branch pTemplate="item">
+                <div class="branch-item">
+                  <div>{{branch.emp_name}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Customer</label>
+          <div class="col-sm-8">
+            <p-autoComplete [minLength]="1" name="cust_id" [(ngModel)]="stockincnotemaster.cust_id"
+              [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)" field="emp_name"
+              [dropdown]="true">
+              <ng-template let-branch pTemplate="item">
+                <div class="branch-item">
+                  <div>{{branch.emp_name}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Date</label>
+          <div class="col-sm-8">
+            <p-calendar dateFormat="mm-dd-yy" hideOnDateTimeSelect="true" hourFormat="12" showTime="true"
+              [showIcon]="true" [defaultDate]="dateValue" name="doc_dt" [(ngModel)]="stockincnotemaster.doc_dt">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Doc No</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="doc_no" [(ngModel)]="stockincnotemaster.doc_no"
+              OnlyNumber='true' minlength=10 maxlength="15">
+          </div>
+        </div>
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Prefix</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="c_prefix" [(ngModel)]="stockincnotemaster.c_prefix"
+              OnlyNumber='true' minlength=10 maxlength="15">
+          </div>
+        </div>
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">count</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="count" [(ngModel)]="stockincnotemaster.count"
+              OnlyNumber='true' minlength=1 maxlength="4">
+          </div>
+        </div>
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">From No</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="From_No" [(ngModel)]="stockincnotemaster.From_No"
+              OnlyNumber='true' minlength=10 maxlength="15">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">To No</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="To_No" [(ngModel)]="stockincnotemaster.To_No" pInputText pKeyFilter="alphanum"
+            minlength=10 maxlength="15">
+        </div>
+      </div>
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">UID</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" pInputText pKeyFilter="int" name="uid" [(ngModel)]="stockincnotemaster.uid">
+        </div>
+      </div>
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Date</label>
+        <div class="col-sm-8">
+          <p-calendar dateFormat="mm-dd-yy" hideOnDateTimeSelect="true" hourFormat="12" showTime="true"
+            [showIcon]="true" [defaultDate]="dateValue" name="doc_dt" [(ngModel)]="stockincnotemaster.doc_dt">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Time</label>
+
+        <div class="col-sm-8">
+          <p-calendar name="Ntime" [(ngModel)]="stockincnotemaster.Ntime" [timeOnly]="true" class="timer">
+          </p-calendar>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+  <p-toast position="bottom-center" key="bc"></p-toast>
+
+</div>

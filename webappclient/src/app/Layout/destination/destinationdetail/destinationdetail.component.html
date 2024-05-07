@@ -1,0 +1,16 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" (click)="tabChange()" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Destination-Entry</a>
+    <ng-template ngbNavContent>
+      <app-destinationentry [(destinationmaster)]="destinationmaster"></app-destinationentry>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Destination @History</a>
+    <ng-template ngbNavContent>
+      <app-destinationhistory (editDestinationEntry)="editDestination($event)"></app-destinationhistory>
+    </ng-template>
+  </li>
+
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

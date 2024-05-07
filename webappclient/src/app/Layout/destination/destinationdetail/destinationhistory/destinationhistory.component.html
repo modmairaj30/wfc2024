@@ -1,0 +1,82 @@
+<div>
+    <div class="card">
+        <p-table  styleClass="p-datatable-striped p-datatable-gridlines"
+         [columns]="selectedColumns" (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)" id="dt"
+          #dt [value]="content" [rows]="100" [paginator]="true" [scrollable]="true" scrollHeight="380px" [resizableColumns]="true"
+         [globalFilterFields]="['prodName','prodCode']" [rowHover]="true" dataKey="id" selectionMode="single" [scrollable]="true" scrollDirection="both"
+         [(selection)]="selectedRowData" [(first)]="first" [responsive]="true"  responsiveLayout="scroll"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+         [showCurrentPageReport]="true">
+         <ng-template pTemplate="caption">
+            <p-toolbar>
+                
+                <div class="p-toolbar-group-left">
+                    <p-button type="button" icon="pi pi-refresh" (click)="ngOnInit()" ></p-button>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" [style]="{minWidth: '150px'}" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search..." />
+                               
+                    </span>
+                              
+                </div>
+                <div class="p-toolbar-group-right">
+                    <i class="pi pi-ellipsis-v"></i>
+                    <p-dropdown   [options]="cols" [(ngModel)]="searchCriteria.key" optionValue="field" optionLabel="header"></p-dropdown>
+                    <p-dropdown   [options]="searchs" [(ngModel)]="searchCriteria.operation" optionValue="field" optionLabel="header"></p-dropdown>
+                    <input [style]="{minWidth: '90px'}" pInputText  type="text"  [(ngModel)]="searchCriteria.value"   placeholder="Value..." />
+                    <button  class="p-button-worn p-mr-2" icon="pi pi-search" pButton pRipple
+                    label="" (click)="find()"></button>
+                    <i class="pi pi-ellipsis-v"></i>          
+                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '150px'}"
+                    placeholder="Choose Columns"></p-multiSelect>
+                                
+               
+                </div>
+            </p-toolbar>
+            
+         </ng-template>
+         <ng-template pTemplate="header" >
+             <tr>
+                    <th style="width:3rem">
+                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                 </th>
+                    <th pSortableColumn="destination" pResizableColumn>Destination<p-sortIcon field="destination"></p-sortIcon>
+                 </th>
+<th pResizableColumn>Dest Code</th>
+<th pResizableColumn>Branch</th>
+<th pResizableColumn>Zone</th>
+<th pResizableColumn>Parent Local</th>
+<th pResizableColumn>State Code</th>
+
+
+                    <th style="width:3rem" ></th>
+             </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-product let-columns="columns">
+             <tr [pSelectableRow]="product">
+                    <td style="width:5%">
+                     <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                 </td>
+                 <td>{{product.destination}}</td>
+                 <td>{{product.dest_code}}</td>
+                 <td>{{product.branch}}</td>
+                 <td>{{product.zone}}</td>
+                 <td>{{product.parent_local}}</td>
+                 <td>{{product.state_code}}</td>
+               
+
+                    <td style="width:3rem" >
+                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-button-icon"
+                         (click)="editProduct(product)"></button>
+                     <!--button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button-->
+                 </td>
+             </tr>
+         </ng-template>
+
+         
+     </p-table>
+ </div>
+ 
+</div>

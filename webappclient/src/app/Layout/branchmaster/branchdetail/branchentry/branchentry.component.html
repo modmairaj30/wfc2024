@@ -1,0 +1,251 @@
+<div>
+  <form autocomplete="off"  #formForm="ngForm" (ngSubmit)="formForm.form.valid && save()" novalidate>
+    <p-toolbar [style]="{width: '95%',padding:'2px'}">
+      <div class="p-toolbar-group-left ">
+      </div>
+      <div class="p-toolbar-group-right">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="submit" label="Save"  icon="pi pi-check"
+              iconPos="left"></button>
+          </div>
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="reset" label="Reset" (click)="save()" icon="pi pi-undo"
+              iconPos="left"></button>
+          </div>
+        </div>
+      </div>
+    </p-toolbar>
+    <div class="panel-body">
+
+      <div class="row">
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Branch Location<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-8">
+            <input type="text"  class="form-control"  required="required" 
+            name="locationName" #locationName="ngModel" [(ngModel)]="branchmaster.locationName"
+            [ngClass]="{'is-invalid': locationName.invalid && (locationName.dirty || locationName.touched || formForm.submitted)}">
+            <span class="text-danger" *ngIf="locationName.invalid && (locationName.dirty || locationName.touched || formForm.submitted) && locationName.errors!['required']">Branch Location is required.</span>
+          </div>
+      </div>
+
+     
+        <!----<div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Branch Location<span class="required-asterisk">*</span></label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="locationName"  pInputText pKeyFilter="alpha"  [(ngModel)]="branchmaster.locationName" #locationName="ngModel"  >
+            <div *ngIf="locationName.errors && (locationName.dirty || locationName.touched || formForm.submitted)" class="error-tooltip  top"
+              style=" right: -164px;">
+              <div [hidden]="locationName.hasError().required">Branch Location Name is required.</div>
+              <div [hidden]="locationName.hasError().pattern">No leading space is allowed.</div>
+            </div>
+          </div>
+        </div>--->
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Branch Code<span class="required-asterisk">*</span></label>
+          
+          <div class="col-sm-8">
+            <input type="text"  class="form-control"  required="required" 
+            name="locationCode" #locationCode="ngModel" [(ngModel)]="branchmaster.locationCode"
+            [ngClass]="{'is-invalid': locationCode.invalid && (locationCode.dirty || locationCode.touched || formForm.submitted)}">
+            <span class="text-danger" *ngIf="locationCode.invalid && (locationCode.dirty || locationCode.touched || formForm.submitted) && locationCode.errors!['required']">Branch Code is required.</span>
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Parent Location<span class="required-asterisk">*</span></label>
+          <div class="col-sm-7">
+            <p-autoComplete [minLength]="1" name="parent" [(ngModel)]="branchmaster.parent"
+              [suggestions]="filteredParentlocationList3" (completeMethod)="filterParentlocationList3($event)"
+              field="parent_name" [dropdown]="true" #parent="ngModel" required >
+              <ng-template let-branch pTemplate="item" >
+                <div class="branch-item">
+                  <div>{{branch.parent_name}}</div>
+                </div>
+              </ng-template>
+              
+            </p-autoComplete>
+            <span class="text-danger" *ngIf="parent.invalid && (parent.dirty || parent.touched || formForm.submitted) && parent.errors!['required']">Parent Location is required.</span>
+          </div>
+
+        </div>
+
+
+
+
+        <!--div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Contact Name</label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" name="contName" [(ngModel)]="branchmaster.contName"
+                [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)" field="emp_name"
+                [dropdown]="true">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.emp_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+
+            </div>
+          </div-->
+
+
+
+      </div>
+
+      <div class="row">
+
+        <!---<div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Local/OS<span class="required-asterisk">*</span></label>
+          <div class="col-sm-8">
+            <select class="form-control" [(ngModel)]="branchmaster.localOS" name="localOS" #localOS="ngModel" required>
+              <option [ngValue]="checkSelectOptionValue(branchmaster.localOS)" selected="selected" disabled>Select
+              </option>
+              <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+            </select>
+            <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched || formForm.submitted)" class="error-tooltip  top">
+              <div [hidden]="localOS.hasError().required">localOS is required.
+              </div>
+            </div>
+          </div>
+        </div>--->
+
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Local/OS<span class="required-asterisk">*</span></label>
+          
+        <div class="col-sm-8">         
+           <select class="form-control" name="localOS" #localOS="ngModel" required="required"  [(ngModel)]="branchmaster.localOS">
+            <option [ngValue]="checkSelectOptionValue(branchmaster.localOS)" selected="selected" disabled>Select
+            </option>
+            <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+          </select>
+          <span class="text-danger" *ngIf="localOS.invalid && (localOS.dirty || localOS.touched || formForm.submitted) && localOS.errors!['required']">localOS is required.</span>
+        </div>
+
+         
+        </div>
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">GST No<span class="required-asterisk">*</span></label>
+          
+          <div class="col-sm-8">
+            <input type="text"  class="form-control"  required="required" 
+            name="tINNo" #tINNo="ngModel" [(ngModel)]="branchmaster.tINNo"
+            [ngClass]="{'is-invalid': tINNo.invalid && (tINNo.dirty || tINNo.touched || formForm.submitted)}">
+            <span class="text-danger" *ngIf="tINNo.invalid && (tINNo.dirty || tINNo.touched || formForm.submitted) && tINNo.errors!['required']">GST No is required.</span>
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">District<span class="required-asterisk">*</span></label>
+          
+          <div class="col-sm-8">
+            <input type="text"  class="form-control"  required="required" 
+            name="district" #district="ngModel" [(ngModel)]="branchmaster.district"
+            [ngClass]="{'is-invalid': district.invalid && (district.dirty || district.touched || formForm.submitted)}">
+            <span class="text-danger" *ngIf="district.invalid && (district.dirty || district.touched || formForm.submitted) && district.errors!['required']">District Name is required.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">STATE CODE<span class="required-asterisk">*</span></label>
+       
+        <div class="col-sm-8">
+          <input type="text"  class="form-control"  required="required" 
+          name="stateCode" #stateCode="ngModel" [(ngModel)]="branchmaster.stateCode"
+          [ngClass]="{'is-invalid': stateCode.invalid && (stateCode.dirty || stateCode.touched || formForm.submitted)}">
+          <span class="text-danger" *ngIf="stateCode.invalid && (stateCode.dirty || stateCode.touched || formForm.submitted) && stateCode.errors!['required']">state Code is required.</span>
+        </div>
+      </div>
+
+        
+
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Region</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="region" pKeyFilter="alpha" pInputText [(ngModel)]="branchmaster.region">
+        </div>
+      </div>
+
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">City<span class="required-asterisk">*</span></label>
+        
+        <div class="col-sm-8">
+          <input type="text"  class="form-control"  required="required" 
+          name="city" #city="ngModel" [(ngModel)]="branchmaster.city"
+          [ngClass]="{'is-invalid': city.invalid && (city.dirty || city.touched || formForm.submitted)}">
+          <span class="text-danger" *ngIf="city.invalid && (city.dirty || city.touched || formForm.submitted) && city.errors!['required']">city Name is required.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Branch Manager Name</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="contNo" [(ngModel)]="branchmaster.contNo" >
+        </div>
+      </div>
+
+
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Mobile No<span class="required-asterisk">*</span></label>
+       
+          <div class="col-sm-8">
+            <input type="text"  class="form-control"  required="required" OnlyNumber='true' maxlength="10" minlength="10" 
+            name="mobNo" #mobNo="ngModel" [(ngModel)]="branchmaster.mobNo"
+            [ngClass]="{'is-invalid': mobNo.invalid && (mobNo.dirty || mobNo.touched || formForm.submitted)}">
+            <span class="text-danger" *ngIf="mobNo.invalid && (mobNo.dirty || mobNo.touched || formForm.submitted) && mobNo.errors!['required']">Mobile No is required.</span>
+          </div>
+      </div>
+
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Email Id <span class="required-asterisk">*</span></label>
+        <!---<div class="col-sm-8">
+          <input type="text" class="form-control" name="emailId" [(ngModel)]="branchmaster.emailId"
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" [maxlength]="80">
+          <div class="error-tooltip  top" [hidden]="email.valid ||email.untouched">
+            <div [hidden]="!email.hasError('pattern')">Email is invalid.</div>
+          </div>
+        </div>-->
+
+        <div class="col-sm-8">
+          <input type="text"  class="form-control"  required="required" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [maxlength]="25"   
+          name="emailId" #emailId="ngModel" [(ngModel)]="branchmaster.emailId"
+          [ngClass]="{'is-invalid': emailId.invalid && (emailId.dirty || emailId.touched || formForm.submitted)}">
+          <span class="text-danger" *ngIf="emailId.invalid && (emailId.dirty || emailId.touched || formForm.submitted) && emailId.errors!['required']">Email Id is required.</span>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Address</label>
+        <div class="col-sm-8">
+          <textarea rows="4" cols="10" class="form-control" name="address"
+            [(ngModel)]="branchmaster.address"></textarea>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+  </form>
+  <div class="error">{{error}}</div>
+  
+  <p-toast position="bottom-center" key="bc"></p-toast>
+</div>

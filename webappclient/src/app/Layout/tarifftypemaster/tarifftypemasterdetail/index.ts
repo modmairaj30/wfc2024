@@ -1,0 +1,6 @@
+export * from './tarifftypemasterdetail.component';
+
+
+
+
+

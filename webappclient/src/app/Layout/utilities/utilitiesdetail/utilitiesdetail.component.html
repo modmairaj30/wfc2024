@@ -1,0 +1,14 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+     <a ngbNavLink >Import Data
+     </a>
+     <ng-template ngbNavContent>
+     <app-Utilitiesentry  ></app-Utilitiesentry>
+     </ng-template>
+   </li>
+   
+ </ul>
+ <div [ngbNavOutlet]="nav" class="mt-2"></div>
+ 
+ 
+ 

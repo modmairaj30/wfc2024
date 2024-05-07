@@ -1,0 +1,678 @@
+<div>
+  <form autocomplete="nope" #formForm="ngForm" (change)="calculatate($event)">
+    <div class="panel panel-primary">
+      <p-toolbar [style]="{width: '95%',padding:'2px'}">
+        <div class="p-toolbar-group-left ">
+          
+        </div>
+        <div class="p-toolbar-group-right">
+          <div class="row">
+            <div class="col-sm-4 ">
+              
+              <button pButton pRipple  label="Save(F2)" icon="pi pi-check" click="save($event)" [disabled]="!formForm.form.valid"  iconPos="left"></button>
+            </div>
+            <div class="col-sm-4 ">
+              <!--<button (click)="save($event)">Click Me</button>-->
+              <button pButton pRipple type="reset" label="Reset(F5)" click="reset()" [disabled]="" icon="pi pi-undo" iconPos="left"></button>
+            </div>
+            <div class="col-sm-4 ">
+            <button class="p-button-info p-mr-2" icon="pi pi-print" pButton pRipple label="Print"
+              (click)="pdf()"></button>
+            </div>
+          </div>
+        </div>
+      </p-toolbar>
+
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Branch<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete autofocus autoHighlight="true" name="locationId" [(ngModel)]="invoice.locationId" tabindex="1" 
+                [suggestions]="filter_location_id"  (completeMethod)="filterLocationId($event)" (onSelect)="dependentLookupBatchNo($event)" field="location_name"
+                [dropdown]="true">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}</div> 
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+          
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Destination Zone-CT<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete  name="teriffLocation" [(ngModel)]="invoice.teriffLocation" tabindex="2"
+                [suggestions]="consignee_destList" (completeMethod)="filterConsigneeDest($event)" field="destination"
+                [dropdown]="true">
+                <ng-template let-temp pTemplate="item">
+                  <div class="temp-item">
+                    <div>{{temp.destination}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">CGST%</label>
+            <div class="col-sm-8">
+              <input type="text"  autocomplete="nope" tabindex="3" readonly class="form-control text-right" AlphaNumeric='true' name="cgst" [(ngModel)]="invoice.cgst">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Consigner Address</label>
+            <div class="col-sm-8">
+              <input type="text" readonly tabindex="4" class="form-control" name="address" AlphaNumeric='true' [(ngModel)]="invoice.address">
+            </div>
+          </div>        
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Origin</label>
+            <div class="col-sm-8">
+              <p-autoComplete autocomplete="nope" tabindex="5" name="orginFld" [(ngModel)]="invoice.orginFld"
+                [suggestions]="filter_orgin_fld" (completeMethod)="filterOrigin($event)" field="destination"
+                [dropdown]="true">
+                <ng-template let-temp pTemplate="item">
+                  <div class="temp-item">
+                    <div>{{temp.destination}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Tariff Type-CT<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control" tabindex="6" [(ngModel)]="invoice.tariffId" name="tariffId" #localOS="ngModel" required>
+                <option [ngValue]="checkSelectOptionValue(invoice.tariffId)" selected="selected" disabled>Select
+                </option>
+                <option [value]="localOS.id" *ngFor="let localOS of tariff_idList">{{localOS.type}}</option>
+              </select>
+              
+            </div>
+          </div>
+          
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">SGST%</label>
+            <div class="col-sm-8">
+              <input type="text" tabindex="7" readonly class="form-control text-right" name="sgst" AlphaNumeric='true' [(ngModel)]="invoice.sgst">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Consigner Mobile No</label>
+            <div class="col-sm-8">
+              <input type="text" readonly tabindex="8" class="form-control" name="consignerMobNo" [(ngModel)]="invoice.consignerMobNo"
+              pInputText pKeyFilter="int" >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Transaction Type<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control" tabindex="9" [(ngModel)]="invoice.type" name="type"  required>
+                <option [value]="localOS.id" *ngFor="let localOS of typeList">{{localOS.travelling_type}}
+                </option>
+              </select>
+              
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">No Of Pieces<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" tabindex="10" class="form-control text-right" name="noOfPieces" [(ngModel)]="invoice.noOfPieces"
+              pInputText pKeyFilter="int" maxlength="15">
+            </div>
+          </div> 
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">IGST%</label>
+            <div class="col-sm-8">
+              <input type="text" tabindex="11" readonly class="form-control text-right" name="igst" [(ngModel)]="invoice.igst" pInputText pKeyFilter="num"
+                >
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Consigner Email Id</label>
+            <div class="col-sm-8">
+              <input type="text" readonly tabindex="12" class="form-control" name="consignerEmailId" [(ngModel)]="invoice.consignerEmailId"
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" [maxlength]="80">
+              <div class="error-tooltip  top" [hidden]="email.valid ||email.untouched">
+                <div [hidden]="!email.hasError('pattern')">Email is invalid.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">C Note No<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete tabindex="13" name="batchNo" [(ngModel)]="invoice.batchNo"
+                [suggestions]="filter_batch_no" (onSelect)="selectCNote($event)" (completeMethod)="filterBatchNo($event)" field="batch_no"
+                [dropdown]="true">
+                <ng-template let-temp pTemplate="item">
+                  <div class="temp-item">
+                    <div>{{temp.batch_no}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Weight-CT<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right" (focusout)="terrifCalculation()" tabindex="14" name="weight" [(ngModel)]="invoice.weight" pInputText pKeyFilter="num"
+                 maxlength="15" DecimalNumber="15" >
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">CGST Amount</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right" tabindex="15" name="cgstAmt" [(ngModel)]="invoice.cgstAmt" pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Consignee Address</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" tabindex="16" name="consigneeadd" [(ngModel)]="invoice.consigneeadd"
+              pInputText pKeyFilter="alphanum" >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Booking Date</label>
+            <div class="col-sm-8">
+              <p-calendar dateFormat="mm-dd-yy" [(ngModel)]="defaultDate" [defaultDate]=defaultDate tabindex="17" hideOnDateTimeSelect="true" hourFormat="12" showTime="true"
+                [showIcon]="true" name="time"></p-calendar>
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Invoice No<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" tabindex="28" name="invoiceNo" [(ngModel)]="invoice.invoiceNo" 	pInputText pKeyFilter="alphanum">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">SGST Amount</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right" tabindex="19" name="sgstAmt" [(ngModel)]="invoice.sgstAmt" pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Consignee Mobile No</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" tabindex="20" name="consigneeMobNo" [(ngModel)]="invoice.consigneeMobNo"
+                OnlyNumber='true' >
+            </div>
+          </div>
+         
+          
+        </div>
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Doc No</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" tabindex="21" name="docNo" [(ngModel)]="invoice.docNo" pInputText pKeyFilter="alphanum"
+                maxlength="15">
+
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Declaration Value<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right" tabindex="22" name="decVal" [(ngModel)]="invoice.decVal" pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">IGST Amount</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right" tabindex="23" name="igstAmt" [(ngModel)]="invoice.igstAmt" pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Status<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control" tabindex="24" [(ngModel)]="invoice.status" name="status" #localOS="ngModel" required>
+                <option [ngValue]="checkSelectOptionValue(invoice.status)" selected="selected" disabled>Select
+                </option>
+                <option [value]="localOS.id" *ngFor="let localOS of statusList">{{localOS.status}}</option>
+              </select>
+              
+            </div>
+          </div>
+          
+          
+        </div>
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Destination<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete  tabindex="25" name="consignee_dest" [(ngModel)]="invoice.consigneeDest"
+                (onSelect)="consigneeDestFromlookup($event)" [suggestions]="filter_location_id5"
+                (completeMethod)="filterLocationId5($event)" field="location_name" [dropdown]="true"
+                #consignee_dest="ngModel" required>
+                <ng-template let-temp pTemplate="item">
+                  <div class="temp-item">
+                    <div>{{temp.location_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Declaration Amt<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right"  tabindex="26" name="decamt" [(ngModel)]="invoice.decamt" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Fuel Tax%</label>
+            <div class="col-sm-8">
+              <input type="text" tabindex="37" readonly class="form-control text-right" name="fuelTax" [(ngModel)]="invoice.fuelTax" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">User Id</label>
+            <div class="col-sm-8">
+              <input type="text" tabindex="43" class="form-control" name="userId" [(ngModel)]="invoice.userId" 	pInputText pKeyFilter="alphanum" >
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Consigner Address</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="address" AlphaNumeric='true' [(ngModel)]="invoice.address">
+            </div>
+          </div>
+          
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Orgin</label>
+            <div class="col-sm-8">
+              <select class="form-control" [(ngModel)]="invoice.orginFld" name="orginFld" #localOS="ngModel" required>
+                <option [ngValue]="checkSelectOptionValue(invoice.orginFld)" selected="selected" disabled>Select
+                </option>
+                <option [value]="localOS.id" *ngFor="let localOS of orginList">{{localOS.branch}}</option>
+              </select>
+              <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+                <div [hidden]="localOS.hasError().required">orgin is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="row"> -->
+          <!--div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">SGST</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="sgst" AlphaNumeric='true' [(ngModel)]="invoice.sgst">
+          </div>
+        </div>
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Consigner Mobile No</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="consignerMobNo" [(ngModel)]="invoice.consignerMobNo" OnlyNumber='true'
+              minlength=10 maxlength="15">
+
+          </div>
+        </div-->
+        <!-- </div> -->
+
+        <!-- <div class="row"> -->
+          <!--div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">No Of Pieces</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="noOfPieces" [(ngModel)]="invoice.noOfPieces" OnlyNumber='true'
+                minlength=10 maxlength="15">
+            </div>
+          </div>
+
+          
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">IGST</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="igst" [(ngModel)]="invoice.igst" OnlyNumber='true'
+                minlength=10 maxlength="15">
+
+            </div>
+          </div>
+
+        <div class="col-sm-4 form-group row">
+          <label class="col-sm-4 col-form-label">Consigner Email Id</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="consignerEmailId" [(ngModel)]="invoice.consignerEmailId"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" [maxlength]="80">
+            <div class="error-tooltip  top" [hidden]="email.valid ||email.untouched">
+              <div [hidden]="!email.hasError('pattern')">Email is invalid.</div>
+            </div>
+          </div>
+        </div-->
+        <!-- </div> -->
+
+        <!-- <div class="row"> -->
+          <!--
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">C Note No</label>
+            <div class="col-sm-8">
+              <select class="form-control" [(ngModel)]="invoice.cNoteNo" name="cNoteNo" #localOS="ngModel" required>
+                <option [ngValue]="checkSelectOptionValue(invoice.cNoteNo)" selected="selected" disabled>Select
+                </option>
+                <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+              </select>
+              <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+                <div [hidden]="localOS.hasError().required">c note no is required.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          -->
+        <!-- </div> -->
+        <div class="row">
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Branch Fwdg</label>
+            <div class="col-sm-8">
+              <input type="text"  class="form-control" tabindex="29" name="branchForwarding" [(ngModel)]="invoice.branchForwarding" 	pInputText pKeyFilter="alphanum">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">OD Charges</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control text-right" tabindex="30" name="odCharges"  [(ngModel)]="invoice.odCharges" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Fuel Amount</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" tabindex="38" readonly class="form-control text-right" name="fuelAmt" [(ngModel)]="invoice.fuelAmt" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Location Code</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" tabindex="42" class="form-control" readonly name="locationCode" [(ngModel)]="invoice.locationCode"  >
+            </div>
+          </div>
+          
+        </div>
+        <div class="row">
+          <!--div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">SGST Amount</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="sgstAmt" [(ngModel)]="invoice.sgstAmt" OnlyNumber='true'
+                minlength=10 maxlength="15">
+  
+            </div>
+          </div>
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Consignee Mobile No</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="consigneeMobNo" [(ngModel)]="invoice.consigneeMobNo" OnlyNumber='true'
+                minlength=10 maxlength="15">
+  
+            </div>
+          </div-->
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Mode Of Consignment<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control" tabindex="32" [(ngModel)]="invoice.destBranch" name="destBranch" #localOS="ngModel"
+                required>
+                <option [value]="localOS.id" *ngFor="let localOS of dest_branchList">{{localOS.Modeofconsignment}}
+                </option>
+              </select>
+             
+            </div>
+          </div>
+
+          
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Courier Charges</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" readonly tabindex="33" name="amount" [(ngModel)]="invoice.amount" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label"> Gross Amt/Taxable Amt</label>
+            <div class="col-sm-8">
+              <input type="text" readonly class="form-control text-right" tabindex="34" name="rptNetamt" [(ngModel)]="invoice.rptNetamt" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          
+            <div class="col-sm-3 form-group row">
+              <label class="col-sm-4 col-form-label">Ref No</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" readonly tabindex="34" name="refNo" [(ngModel)]="invoice.refNo" pInputText pKeyFilter="alphanum">
+              </div>
+            </div>
+          
+          
+          
+        </div>
+        <div class="row">
+          <!--div class="col-sm-4 form-group row">
+              <label class="col-sm-4 col-form-label">Declaration Value</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="decVal" [(ngModel)]="invoice.decVal" OnlyNumber='true'
+                  minlength=10 maxlength="15">
+    
+              </div>
+            </div>
+            <div class="col-sm-4 form-group row">
+              <label class="col-sm-4 col-form-label">IGST Amount</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="igstAmt" [(ngModel)]="invoice.igstAmt" OnlyNumber='true'
+                  minlength=10 maxlength="15">
+    
+              </div>
+            </div>
+            
+            <div class="col-sm-4 form-group row">
+              <label class="col-sm-4 col-form-label">Status</label>
+              <div class="col-sm-8">
+                <select class="form-control" [(ngModel)]="invoice.status" name="status" #localOS="ngModel"
+                  required>
+                  <option [ngValue]="checkSelectOptionValue(invoice.status)" selected="selected" disabled>Select
+                  </option>
+                  <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+                </select>
+                <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+                  <div [hidden]="localOS.hasError().required">localOS is required.
+                  </div>
+                </div>
+    
+              </div>
+            </div-->
+        </div>
+
+        <div class="row">
+          <!--div class="col-sm-4 form-group row">
+                  <label class="col-sm-4 col-form-label">User Id</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="userId" [(ngModel)]="invoice.userId" OnlyNumber='true'
+                      minlength=10 maxlength="15">
+        
+                  </div>
+                </div-->
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Mode Of Payment<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <select class="form-control" tabindex="35" [(ngModel)]="invoice.cardType" name="cardType" #localOS="ngModel"
+                required>
+                <option [ngValue]="checkSelectOptionValue(invoice.cardType)" selected="selected" disabled>Select
+                </option>
+                <option [value]="localOS.id" *ngFor="let localOS of card_typeList">{{localOS.card_name}}</option>
+              </select>
+              
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Declaration %</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control text-right" readonly tabindex="18" name="decPer" [(ngModel)]="invoice.decPer" pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Net Amount</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" tabindex="39"class="form-control text-right" name="netAmt" [(ngModel)]="invoice.netAmt" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Location Code</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" tabindex="31" name="locationCode" [(ngModel)]="invoice.locationCode" 	pInputText pKeyFilter="alpha">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!--div class="col-sm-4 form-group row">
+                  <label class="col-sm-4 col-form-label">Location Code</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="locationCode" [(ngModel)]="invoice.locationCode" OnlyNumber='true'
+                      minlength=10 maxlength="15">
+        
+                  </div>
+                </div>
+                <div class="col-sm-4 form-group row">
+                  <label class="col-sm-4 col-form-label">Mode Of Consignment</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" [(ngModel)]="invoice.consigneeDest" name="consigneeDest" #localOS="ngModel"
+                    required>
+                    <option [ngValue]="checkSelectOptionValue(invoice.consigneeDest)" selected="selected" disabled>Select
+                    </option>
+                    <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+                  </select>
+                  <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+                    <div [hidden]="localOS.hasError().required">localOS is required.
+                    </div>
+                  </div>
+        
+                  </div>
+                </div-->
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Customer Name</label>
+            <div class="col-sm-8">
+              <input type="text" [readonly]="invoice.cardType == null || invoice.cardType == '1' || invoice.cardType == '5' || invoice.cardType == '6'" tabindex="41" class="form-control" name="custName" [(ngModel)]="invoice.custName" 	pInputText pKeyFilter="alpha"  >
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Consignee Name</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" tabindex="27" name="consigneename" [(ngModel)]="invoice.consigneename" 	pInputText pKeyFilter="alpha">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Party Label</label>
+            <div class="col-sm-8">
+              <input type="text" tabindex="36" class="form-control" name="partyLabel" [(ngModel)]="invoice.partyLabel"
+              pInputText pKeyFilter="alphanum" maxlength="15">
+            </div>
+          </div>
+          <div class="col-sm-3 form-group row">
+            <label class="col-sm-4 col-form-label">Docket Charges</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" tabindex="34"  name="docketCharges" [(ngModel)]="invoice.docketCharges" 	pInputText pKeyFilter="num"
+                maxlength="15">
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-3 form-group row">
+          <label class="col-sm-4 col-form-label">Consigner Name-CT<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-8">
+            <p-autoComplete tabindex="40" name="party_id" [(ngModel)]="invoice.partyId"
+              (onSelect)="partyFromlookup($event)" [suggestions]="filter_party_id"
+              (completeMethod)="consignmenNameFiltered($event)" field="party_name" [dropdown]="true"
+              #party_id="ngModel" required>
+              <ng-template let-temp pTemplate="item">
+                <div class="temp-item">
+                  <div>{{temp.party_name}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+            
+          </div>
+        </div>
+
+        <!-- <div class="row"> -->
+          <!--div class="col-sm-4 form-group row">
+                  <label class="col-sm-4 col-form-label">Rpt Net Amount</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="rptNetamt" [(ngModel)]="invoice.rptNetamt" OnlyNumber='true'
+                      minlength=10 maxlength="15">
+        
+                  </div>
+                </div>
+                <div class="col-sm-4 form-group row">
+                  <label class="col-sm-4 col-form-label">Mode Of Payment</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" [(ngModel)]="invoice.consigneeDest" name="consigneeDest" #localOS="ngModel"
+                    required>
+                    <option [ngValue]="checkSelectOptionValue(invoice.consigneeDest)" selected="selected" disabled>Select
+                    </option>
+                    <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+                  </select>
+                  <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+                    <div [hidden]="localOS.hasError().required">localOS is required.
+                    </div>
+                  </div>
+        
+                  </div>
+                </div>
+                
+                <div class="col-sm-4 form-group row">
+                <label class="col-sm-4 col-form-label">Declaration %</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="decPer" [(ngModel)]="invoice.decPer" OnlyNumber='true'
+                      minlength=10 maxlength="15">
+                </div>
+                </div-->
+        <!-- </div> -->
+
+        <!-- <div class="row"> -->
+          <!--div class="col-sm-4 form-group row">
+                  <label class="col-sm-4 col-form-label">Consigner Name</label>
+                  <div class="col-sm-8">
+                    <select class="form-control" [(ngModel)]="invoice.ConsigneeName" name="ConsigneeName" #localOS="ngModel"
+                    required>
+                    <option [ngValue]="checkSelectOptionValue(invoice.ConsigneeName)" selected="selected" disabled>Select
+                    </option>
+                    <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.local_OS}}</option>
+                  </select>
+                  <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+                    <div [hidden]="localOS.hasError().required">localOS is required.
+                    </div>
+                  </div>
+                  </div>
+                </div-->
+        <!-- </div> -->
+      </div>
+    <div>
+
+     
+    </div>
+    </div>
+  </form>
+  <p-toast position="bottom-center" key="bc"></p-toast>
+</div>

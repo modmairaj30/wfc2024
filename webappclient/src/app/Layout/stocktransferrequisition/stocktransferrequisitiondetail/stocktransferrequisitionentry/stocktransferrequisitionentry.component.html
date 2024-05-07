@@ -1,0 +1,94 @@
+<div>
+  <form autocomplete="off" #formForm="ngForm" (ngSubmit)="formForm.form.valid && save()" novalidate>
+    <div class="panel panel-primary">
+      <p-toolbar [style]="{width: '95%',padding:'2px'}">
+        <div class="p-toolbar-group-left ">
+        </div>
+        <div class="p-toolbar-group-right">
+          <div class="row">
+            <div class="col-sm-6 ">
+              <button pButton pRipple type="submit" label="Save(F2)" icon="pi pi-check" [disabled]="!formForm.form.valid" iconPos="left"></button>
+            </div>
+            <div class="col-sm-6 ">
+              <button pButton pRipple type="reset" label="Reset(F5)" click="reset()" icon="pi pi-undo" iconPos="left"></button>
+            </div>
+          </div>
+        </div>
+      </p-toolbar>
+
+      <div class="panel-body">
+
+
+        <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Location<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" #fe name="locationId" [readonly]="true" [(ngModel)]="stockRequisition.locationId" #locationId="ngModel" 
+                #localOS="ngModel" required [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)"
+                field="location_name" [dropdown]="false"   [multiple]="false">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              <!--div *ngIf="locationId.errors && (locationId.dirty ||locationId.touched)" class="error-tooltip  top">
+                <div [hidden]="locationId.hasError().required">location is required.
+                </div>
+              </div-->
+
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Doc Date</label>
+            <div class="col-sm-8">
+              <p-calendar dateFormat="dd-mm-yy" name="fromWeight" hideOnDateTimeSelect="true" hourFormat="12" showTime="true"
+                [showIcon]="true" name="docDt"  [(ngModel)]="stockRequisition.docDt" #docDt="ngModel" required></p-calendar>
+                <div *ngIf="docDt.errors && (docDt.dirty ||docDt.touched)" class="error-tooltip  top">
+                  <div [hidden]="docDt.hasError().required">Date is required.
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">User Id</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="verifiedBy" readonly [(ngModel)]="stockRequisition.userId" #verifiedBy="ngModel" required>
+          
+            <div *ngIf="verifiedBy.errors && (verifiedBy.dirty ||verifiedBy.touched)" class="error-tooltip  top">
+              <div [hidden]="verifiedBy.hasError().required">User Id is required.
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Doc No<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8" style="padding-right: 0.9rem !important;">
+              <input type="text" class="form-control" name="docNo" [(ngModel)]="stockRequisition.docNo" #docNo="ngModel" required>
+              <div *ngIf="docNo.errors && (docNo.dirty ||docNo.touched)" class="error-tooltip  top">
+                <div [hidden]="docNo.hasError().required">docNo is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       <div class="col-sm-4 form-group row">
+        <label class="col-sm-4 col-form-label">Qty for C-Note</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="qty"  [(ngModel)]="stockRequisition.qty"  required>
+      
+        
+        </div>
+      </div>
+      </div>
+      
+    </div>
+
+  </form>
+  <p-toast position="bottom-center" key="success"></p-toast>
+  <p-toast position="bottom-center" key="error"></p-toast>
+</div>

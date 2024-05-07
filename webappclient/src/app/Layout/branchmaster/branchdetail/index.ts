@@ -1,0 +1,6 @@
+export * from './branchdetail.component';
+
+
+
+
+

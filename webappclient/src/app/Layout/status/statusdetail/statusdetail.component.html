@@ -1,0 +1,16 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" (click)="tabChange()" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Status</a>
+    <ng-template ngbNavContent>
+      <app-statusentry [(status1)]="status1"></app-statusentry>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink (click)="clear();">Status @History</a>
+    <ng-template ngbNavContent>
+      <app-statushistory (editStatusEntry)="editStatus($event)"></app-statushistory>
+    </ng-template>
+  </li>
+
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

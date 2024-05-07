@@ -1,0 +1,324 @@
+<div>
+  <form autocomplete="nope" #formForm="ngForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="formForm.form.valid && save()" >
+    <div class="panel panel-primary">
+      <p-toolbar>
+        <div class="p-toolbar-group-left ">
+        </div>
+        <div class="p-toolbar-group-right">
+         <button pButton pRipple type="submit" label="Save(F2)" icon="pi pi-check" [disabled]="!formForm.form.valid" iconPos="left"></button>
+         <button pButton pRipple type="reset" label="Reset(F5)" (click)="reset()" [disabled]="editmod" icon="pi pi-undo" iconPos="left"></button>
+          </div>
+      </p-toolbar>
+
+      <div class="panel-body">
+
+
+        <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">From Location<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" #fe  name="locationId" [readonly]="editmod" [(ngModel)]="stocktransfer.locationId"
+                #localOS="ngModel" required [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)"
+                field="location_name" [dropdown]="!editmod" (onSelect)="onSelecttionOfFromLocation($event);"  [multiple]="false">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              
+
+            </div>
+          </div>
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">To Location<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" #fe  name="tolocation" [readonly]="editmod" [(ngModel)]="stocktransfer.tolocation"
+                #localOS="ngModel" required [suggestions]="filteredEmpList3" (completeMethod)="filterEmpList3($event)"
+                field="location_name" [dropdown]="!editmod" (onSelect)="change4($event);"  [multiple]="false">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              
+
+            </div>
+          </div>
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Doc Date</label>
+            <div class="col-sm-8" style="padding-right: 0.95rem !important;">
+              <p-calendar dateFormat="dd-mm-yy" #docDt="ngModel" required hideOnDateTimeSelect="true" hourFormat="12" showTime="true"
+                [showIcon]="true" name="docDt"  [(ngModel)]="stocktransfer.docDt" name="fromWeight"></p-calendar>
+            </div>
+          </div>
+
+          
+        </div>
+        <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Doc No</label>
+            <div class="col-sm-8" style="padding-right: 0.95rem !important;">
+              <input type="text" autocomplete="nope" class="form-control" name="docNo" [(ngModel)]="stocktransfer.docNo">
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">User Id</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="verifiedBy" readonly [(ngModel)]="stocktransfer.userId" #verifiedBy="ngModel" required>
+          
+            <div *ngIf="verifiedBy.errors && (verifiedBy.dirty ||verifiedBy.touched)" class="error-tooltip  top">
+              <div [hidden]="verifiedBy.hasError().required">User Id is required.
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Comment</label>
+            <div class="col-sm-8"  style="padding-right: 0.95rem !important;">
+              <input type="text" class="form-control" name="comment"  [(ngModel)]="stocktransfer.comment">
+            </div>
+          </div>
+      </div>
+      <div class="row">
+        
+       </div> 
+      </div>
+      <div class="card"  style="height: 10vh;">
+      <p-table [value]="products2" styleClass="p-datatable-striped" #detailtable dataKey="sno" editMode="row" [scrollable]="true" scrollHeight="330px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width:3em">SNo.</th>
+              <!-- <th style="width:15em;">Titles<span  class="required-asterisk">*</span></th> -->
+              <!-- <th style="width:8em;">Author </th> -->
+              <!-- <th style="width:6em;">Code</th> -->
+              <th style="width:14em;">C-Note Prefix </th>
+              <th style="width:14em;">From C-Note-No </th>
+              <th style="width:14em;">To C-Note-No </th>
+              <th style="width:10em;">Qty<span  class="required-asterisk">*</span></th>
+              <!-- <th style="width:6em;">Rate</th>
+              <th style="width:6em;">Amount</th>
+              <th style="width:6em;">Disc%</th>
+              <th style="width:6em;">DiscAmt</th>
+              <th style="width:6em;">NetAmount</th> -->
+              <th >
+                <!-- <p-button label="New(F7)" icon="pi pi-plus"  (click)="addvalue();"></p-button> -->
+                <p-button label="Add" icon="pi pi-plus"  (click)="addCNoteNo()"></p-button>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="product">
+              <td style="width:3em">{{product.sno}}</td>
+
+              <!-- <td style="width:15em" pEditableColumn>
+                <p-cellEditor>
+                  
+                  <ng-template pTemplate="input">
+                    <app-customsearch [content]="titleList2"    id="productId{{ri}}" [value]="product.productName"  field="prod_name" name="productId{{ri}}" [id]="product.productId" (onSelect)="selectedAutoCompletedValue($event,ri,product);"></app-customsearch>
+                    p-autoComplete [minLength]="1" name="productId{{ri}}" (onSelect)="change1($event,ri,product);"
+                      [suggestions]="filteredEmpList2" (completeMethod)="filterEmpList2($event)"
+                      [(ngModel)]="product.productId" field="prod_name" delay="500" [dropdown]="true" [multiple]="false"
+                      [virtualScroll]="false">
+                      <ng-template let-branch pTemplate="item">
+                        <div class="branch-item">
+                          <div style="font-size:10px;">
+                            {{branch.prod_name}}--{{branch.product_code}}--{{branch.product_rate}}</div>
+                        </div>
+                      </ng-template> 
+                    </p-autoComplete
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.productName}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+               -->
+              <!-- <td style="width:8em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" tabindex="-1" disabled name="author{{ri}}"  size="8" [(ngModel)]="product.author">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.author}}
+                  </ng-template>
+                </p-cellEditor>
+              </td> -->
+              <!-- <td style="width:6em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" tabindex="-1" disabled name="Code{{ri}}" size="3" [(ngModel)]="product.productCode">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.productCode}}
+                  </ng-template>
+                </p-cellEditor>
+              </td> -->
+              <td style="width:14em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <p-autoComplete [minLength]="1"  name="c_prefix" [(ngModel)]="stocktransfer.prefix"
+                      #localOS="ngModel" required [suggestions]="filteredEmpList4" (completeMethod)="filterEmpList4($event)"
+                      field="c_prefix" [dropdown]="!editmod"  [multiple]="false">
+                      <ng-template let-filteredEmpList4 pTemplate="item">
+                        <div class="branch-item">
+                          <div>{{filteredEmpList4.c_prefix}}</div>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="width:14em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <p-autoComplete [minLength]="1"  name="c_no" [(ngModel)]="stocktransfer.fromCNo"
+                      #localOS="ngModel" required [suggestions]="filteredEmpList5" (completeMethod)="filterEmpList5($event)"
+                      field="c_no" [dropdown]="!editmod"  [multiple]="false">
+                      <ng-template let-filteredEmpList5 pTemplate="item">
+                        <div class="branch-item">
+                          <div>{{filteredEmpList5.c_no}}</div>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="width:14em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <p-autoComplete [minLength]="1"  name="c_no" [(ngModel)]="stocktransfer.toCNo"
+                      #localOS="ngModel" required [suggestions]="filteredEmpList6" (completeMethod)="filterEmpList6($event)"
+                      field="c_no" [dropdown]="!editmod"  [multiple]="false">
+                      <ng-template let-filteredEmpList6 pTemplate="item">
+                        <div class="branch-item">
+                          <div>{{filteredEmpList6.c_no}}</div>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              
+              <td style="width:10em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" autocomplete="nope" name="qty{{ri}}"  required  style="text-align:right;" OnlyNumber="true" size="4" (change)="change2($event,ri,product)"
+                      [(ngModel)]="product.qty">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.qty}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <!-- <td style="width:6em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" tabindex="-1" disabled name="rate{{ri}}"  size="3" [(ngModel)]="product.rate">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.rate}}
+                  </ng-template>
+                </p-cellEditor>
+              </td> -->
+              <!-- <td style="width:6em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" tabindex="-1" disabled name="amount{{ri}}"  size="3" [(ngModel)]="product.amount">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.amount}}
+                  </ng-template>
+                </p-cellEditor>
+              </td> -->
+              <!-- <td style="width:6em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text"   name="Dics%{{ri}}" size="3" style="text-align:right;" OnlyNumber="true" [(ngModel)]="product.Dics"(change)="change2($event,ri,product)" >
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.Dics}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="width:6em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" disabled  name="Dics Amt%{{ri}}" size="3" [(ngModel)]="product.discAmt" >
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.discAmt}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="width:6em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" disabled name="netAmt{{ri}}" size="3" [(ngModel)]="product.netAmt">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.netAmt}}
+                  </ng-template>
+                </p-cellEditor>
+              </td> -->
+
+              <td style="text-align:center;" class="d-flex align-items-center">
+                <button *ngIf="!editing" pButton  tabindex="-1" pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                <button *ngIf="editing"  pButton pRipple type="button"  tabindex="-1" pSaveEditableRow icon="pi pi-check"
+                  (click)="onRowEditSave(product)"
+                  class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                <button *ngIf="editing" pButton   tabindex="-1" pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                  (click)="onRowEditCancel(product, ri)"
+                  class="p-button-rounded p-button-text p-button-danger"></button>
+                  <button pButton pRipple type="button"  tabindex="-1" icon="pi pi-trash" (click)="onRowDelete(product, ri)"
+                    class="p-button-rounded p-button-danger p-button-text"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <!-- <tr>
+              <th style="width:6em">Total Items</th>
+                <th style="width:3em;text-align:center;">{{sno}}</th>
+                <th style="width:8em;text-align:center;">C Note No.</th>
+              <th style="width:8em;text-align:center;">
+                <ng-container *ngIf="selectedCNoteNos.length == 0">0</ng-container>
+                <ng-container *ngIf="selectedCNoteNos.length > 0">
+                  <ng-container *ngFor="let item of selectedCNoteNos; let i= index">
+                    <span>{{item}} <span *ngIf="selectedCNoteNos.length > 1 && (i+1) < selectedCNoteNos.length">, </span></span>
+                  </ng-container>
+                </ng-container>
+
+              <th style="width:8em;text-align:center;"></th>
+              <th style="width:8em;text-align:center;">{{stocktransfer.grossAmt}} </th>
+              <th style="width:8em;text-align:center;"></th>
+              <th style="width:8em;text-align:center;">{{stocktransfer.discamt}} </th>
+              <th style="width:8em;text-align:center;">{{stocktransfer.netAmt}}</th>
+              <th style="width:18em;text-align:center;">
+                
+              </th>
+              <th></th>
+            </tr> -->
+            <ng-container *ngIf="selectedCNoteNos.length > 0">
+              <tr>
+                <th style="width: 6rem;">S. No.</th>
+                <th>C Note No.</th>
+              </tr>
+              <tr *ngFor="let item of selectedCNoteNos; let i = index;">
+                <td style="width: 6rem;">{{i+1}}</td>
+                <td>{{item}}</td>
+              </tr>
+            </ng-container>
+        </ng-template>
+
+        </p-table>
+      </div>
+      </div>
+    
+  </form>
+  <p-toast position="bottom-center" key="success"></p-toast>
+  <p-toast position="bottom-center" key="error"></p-toast>
+</div>

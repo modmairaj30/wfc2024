@@ -1,0 +1,18 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Stock in C-Node(HO)</a>
+    <ng-template ngbNavContent>
+    <app-stockincnotemasterentry></app-stockincnotemasterentry>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Stock in C-Node(HO) @History</a>
+    <ng-template ngbNavContent>
+    <app-stockincnotemasterhistory></app-stockincnotemasterhistory>
+    </ng-template>
+  </li>
+  
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+

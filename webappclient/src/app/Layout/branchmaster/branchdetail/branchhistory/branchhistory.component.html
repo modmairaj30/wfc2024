@@ -1,0 +1,99 @@
+<div>
+
+
+    <div class="card">
+
+        <p-table [resizableColumns]="true" styleClass="p-datatable-gridlines"
+            (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)" id="dt" columnResizeMode="expand" #dt
+            [value]="content" [rows]="100" [paginator]="true" [globalFilterFields]="['branch','locationName','region']"
+            [rowHover]="true" dataKey="id" selectionMode="" [(selection)]="selectedRowData"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true" [scrollable]="true" scrollHeight="400px">
+
+
+            <ng-template pTemplate="caption">
+
+                <div class="p-d-flex">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search..." />
+                    </span>
+                    <div style="float:right;">
+                        <button style="margin-right:2px" class="p-button-help p-mr-2" icon="pi pi-file-pdf" pButton
+                            pRipple label="Pdf" (click)="openPDF()"></button>
+                        <button style="margin-right:2px" pButton pRipple label="Excel" icon="pi pi-file-excel"
+                            (click)="exportExcel()" class="p-button-success p-mr-2"></button>
+                        <button pButton pRipple label="Print" icon="pi pi-print" class="p-button-info p-mr-2"
+                            (click)="print()"></button>
+                    </div>
+
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th style="width: 9rem" pSortableColumn="locationName" pResizableColumn>Location Name <p-sortIcon
+                            field="branch"></p-sortIcon>
+                    </th>
+                    <th style="width: 9rem" pSortableColumn="locationCode" pResizableColumn>Location Code<p-sortIcon
+                            field="branch"></p-sortIcon>
+                    </th>
+                    <th style="width: 7rem" pSortableColumn="localOS" pResizableColumn>Local/OS<p-sortIcon
+                            field="branch"></p-sortIcon>
+                    </th>
+                    <th style="width: 7rem" pSortableColumn="parent" pResizableColumn>Parent Location<p-sortIcon
+                            field="branch"></p-sortIcon>
+                    </th>
+                    <th style="width: 7rem" pSortableColumn="branch" pResizableColumn>Branch <p-sortIcon field="branch">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 9rem" pResizableColumn>Contact Name </th>
+                    <th style="width: 9rem" pResizableColumn>Mobile No</th>
+                    <th style="width: 11rem" pResizableColumn>Email </th>
+                    <th style="width: 9rem" pResizableColumn>Address </th>
+                    <th style="width: 9rem" pSortableColumn="stateCode" pResizableColumn>State Code <p-sortIcon
+                            field="stateCode">
+                        </p-sortIcon>
+                    </th>
+                    <th style="width: 9rem" pSortableColumn="region" pResizableColumn>Region <p-sortIcon field="region">
+                        </p-sortIcon>
+                    </th>
+                    <!--th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th-->
+                    <th style="width: 3rem"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td style="width: 3rem">
+                        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    </td>
+                    <td style="width: 9rem">{{product.locationName}}</td>
+                    <td style="width: 9rem">{{product.locationCode}}</td>
+                    <td style="width: 7rem">{{product.parent}}</td>
+                    <td style="width: 7rem">{{product.localOS}}</td>
+
+                    <td style="width: 7rem">{{product.branch}}</td>
+                    <td style="width: 9rem">{{product.contName}}</td>
+                    <td style="width: 9rem">{{product.mobNo}}</td>
+                    <td style="width: 11rem">{{product.emailId}}</td>
+                    <td style="width: 9rem" pTooltip="{{product.address}}">{{product.address}}</td>
+                    <td style="width: 9rem">{{product.stateCode}}</td>
+                    <td style="width: 9rem">{{product.region}}</td>
+                    <!--td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td-->
+                    <td style="width: 3rem">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info p-button-icon"
+                            (click)="editProduct(product)"></button>
+                        <!--button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button-->
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+
+    <!-- <qrcode id="qrcode" [qrdata]="'Your data'" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'img'"></qrcode>-->
+</div>

@@ -1,0 +1,184 @@
+<div>
+  <form autocomplete="nope" #formForm="ngForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="save()" novalidate>
+    <div class="panel panel-primary">
+      <p-toolbar>
+        <div class="p-toolbar-group-left ">
+        </div>
+        <div class="p-toolbar-group-right">
+         <button pButton pRipple type="submit" label="Save(F2)" icon="pi pi-check" iconPos="left"></button>
+         <button pButton pRipple type="reset" label="Reset(F5)" (click)="reset()" [disabled]="editmod" icon="pi pi-undo" iconPos="left"></button>
+          </div>
+      </p-toolbar>
+    
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Location<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" #fe  name="locationId" [readonly]="editmod" [(ngModel)]="stockInCNote.locationId"
+                #localOS="ngModel" required [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)"
+                field="location_name" [dropdown]="!editmod" (onSelect)="change3($event);"  [multiple]="false">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              
+
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Stock Issue Date<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <p-calendar dateFormat="dd-mm-yy"  hideOnDateTimeSelect="true" hourFormat="12" showTime="false"
+                [showIcon]="true" name="docDt" [(ngModel)]="stockInCNote.docDt"></p-calendar>
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row" hidden="true">
+            <label class="col-sm-4 col-form-label">UID</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="uid" readonly [(ngModel)]="stockInCNote.uid">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 form-group row" hidden="true">
+            <label class="col-sm-4 col-form-label">Doc No</label>
+            <div class="col-sm-8">
+              <input type="text" autocomplete="nope" class="form-control" name="docNo" [(ngModel)]="stockInCNote.docNo">
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Prefix<span  class="required-asterisk">*</span></label>
+            
+            <div class="col-sm-8">
+              <input type="text"  class="form-control"  required="required" (change)="calculatate($event)"  autocomplete="nope" size="25" style="text-transform: uppercase"
+              name="cPrefix" #cPrefix="ngModel"  [(ngModel)]="stockInCNote.cPrefix"
+              [ngClass]="{'is-invalid': cPrefix.invalid && (cPrefix.dirty || cPrefix.touched || formForm.submitted)}">
+              <span class="text-danger" *ngIf="cPrefix.invalid && (cPrefix.dirty || cPrefix.touched || formForm.submitted) && cPrefix.errors!['required']">Prefix is required.</span>
+            </div>
+          </div>
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Count<span  class="required-asterisk">*</span></label>
+            
+            <div class="col-sm-8">
+              <input type="text"  class="form-control"  required="required"   size="25" style="text-transform: uppercase"
+              name="count" #count="ngModel"  [(ngModel)]="stockInCNote.count"
+              [ngClass]="{'is-invalid': count.invalid && (count.dirty || count.touched || formForm.submitted)}">
+              <span class="text-danger" *ngIf="count.invalid && (count.dirty || count.touched || formForm.submitted) && count.errors!['required']">count is required.</span>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">From No<span  class="required-asterisk">*</span></label>
+           <div class="col-sm-8">
+            <input type="text"  class="form-control"  required="required" size="25"   
+            name="fromNo" #fromNo="ngModel"   [(ngModel)]="stockInCNote.fromNo"
+            [ngClass]="{'is-invalid': fromNo.invalid && (fromNo.dirty || fromNo.touched || formForm.submitted)}">
+            <span class="text-danger" *ngIf="fromNo.invalid && (fromNo.dirty || fromNo.touched || formForm.submitted) && fromNo.errors!['required']">From No is required.</span>
+          </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">To No<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text"  class="form-control"  required="required" size="25"   
+              name="toNo" #toNo="ngModel"   [(ngModel)]="stockInCNote.toNo"
+              [ngClass]="{'is-invalid': toNo.invalid && (toNo.dirty || toNo.touched || formForm.submitted)}">
+              <span class="text-danger" *ngIf="toNo.invalid && (toNo.dirty || toNo.touched || formForm.submitted) && toNo.errors!['required']">To No is required.</span>
+            </div>
+          </div> 
+        </div>  
+               
+    </div>
+
+     <!-- <div class="card">
+
+        <p-table [value]="products2" styleClass="p-datatable-striped" #detailtable dataKey="sno" editMode="row" [scrollable]="true" scrollHeight="330px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width:3em">SNo.</th>
+              <th style="width:16em;text-align:center;">Product<span  class="required-asterisk">*</span></th>
+              <th style="width:8em;text-align:center;">C NoteNo</th>
+              <th style="width:8em;text-align:center;">Qty<span  class="required-asterisk">*</span></th>
+              <th style="width:18em;text-align:center;">
+                <p-button label="New(F7)" icon="pi pi-plus"  (click)="addvalue();"></p-button>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="product">
+              <td style="width:3em">{{product.sno}}</td>
+
+              <td style="width:16em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <app-customsearch [content]="titleList2"   id="productId{{ri}}" [value]="product.productName"  field="prod_name" name="productId{{ri}}" [id]="product.productId" (onSelect)="selectedAutoCompletedValue($event,ri,product);"></app-customsearch>-->
+                   <!-- <p-autoComplete [minLength]="1" name="productId{{ri}}" (onSelect)="change1($event,ri,product);"
+                      [suggestions]="filteredEmpList2" (completeMethod)="filterEmpList2($event)"
+                      [(ngModel)]="product.productId" field="prod_name" delay="500" [dropdown]="true" [multiple]="false"
+                      [virtualScroll]="false">
+                      <ng-template let-branch pTemplate="item">
+                        <div class="branch-item">
+                          <div style="font-size:10px;">
+                            {{branch.prod_name}}--{{branch.product_code}}--{{branch.product_rate}}</div>
+                        </div>
+                      </ng-template> 
+                    </p-autoComplete>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.productName}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              
+              <td style="width:8em" pEditableColumn>
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" autocomplete="nope" name="qty{{ri}}" OnlyNumber="true" required size="4" (change)="change2($event,ri,product)"
+                      [(ngModel)]="product.qty">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{product.qty}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              
+             
+             
+
+
+              <td style="text-align:center;">
+                <button *ngIf="!editing" pButton  tabindex="-1" pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                  (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                <button *ngIf="editing"  pButton pRipple type="button"  tabindex="-1" pSaveEditableRow icon="pi pi-check"
+                  (click)="onRowEditSave(product)"
+                  class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                <button *ngIf="editing" pButton   tabindex="-1" pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                  (click)="onRowEditCancel(product, ri)"
+                  class="p-button-rounded p-button-text p-button-danger"></button>
+              </td>
+              <td style="text-align:center">
+                <button pButton pRipple type="button"  tabindex="-1" icon="pi pi-trash" (click)="onRowDelete(product, ri)"
+                  class="p-button-rounded p-button-danger p-button-text"></button>
+
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>-->
+    </div>
+
+    </form>
+  <p-toast position="bottom-center" key="success"></p-toast>
+  <p-toast position="bottom-center" key="error"></p-toast>
+</div>

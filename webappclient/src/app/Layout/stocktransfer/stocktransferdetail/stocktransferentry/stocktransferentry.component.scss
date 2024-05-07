@@ -1,0 +1,13 @@
+.p-inputtext {
+    height: 25px;
+    font-size: 0.75rem;
+    width: 120px;
+}
+
+:host ::ng-deep  .p-autocomplete-panel {
+    top: 0px !important;
+}
+
+:host ::ng-deep  .p-datatable-scrollable-body {
+    height: 36vh !important;
+}

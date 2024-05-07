@@ -1,0 +1,253 @@
+<div>
+  <form autocomplete="off"  #formForm="ngForm"  >
+    <p-toolbar [style]="{width: '95%',padding:'2px'}">
+      <div class="p-toolbar-group-left ">
+      </div>
+      <div class="p-toolbar-group-right">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <button pButton pRipple  label="Save" (click)="validate()" icon="pi pi-check"
+              iconPos="left"></button>
+          </div>
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="reset" label="Reset"  icon="pi pi-undo"
+              iconPos="left"></button>
+          </div>
+        </div>
+      </div>
+    </p-toolbar>
+
+    <div class="row">
+      <div class="col-lg-4 pb-3 pt-3">
+        <div class="row">
+          <label class="col-sm-5 col-form-label">Consignment Mode<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-7">
+            <select class="form-control" [(ngModel)]="credittarriffmaster.modeConsign" name="modeConsign"
+              #localOS="ngModel" required>
+              <option [ngValue]="checkSelectOptionValue(credittarriffmaster.modeConsign)" selected="selected"
+                disabled>Select</option>
+              <option [value]="localOS.id" *ngFor="let localOS of localList2">{{localOS.Modeofconsignment}}</option>
+            </select>
+            <div *ngIf="localOS.errors && (localOS.dirty ||localOS.touched)" class="error-tooltip  top">
+              <div [hidden]="localOS.hasError().required">Consignment Mode is required.
+              </div>
+            </div>
+          </div>
+          <label class="col-sm-5 pt-3 col-form-label">Mode of Payment<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-7 pt-3">
+            <select class="form-control" [(ngModel)]="credittarriffmaster.paymentType" name="paymentType"
+              #Payment="ngModel" required>  
+              <option [ngValue]="checkSelectOptionValue(credittarriffmaster.paymentType)" selected="selected"
+                disabled>Select</option>
+              <option [value]="localOS.id" *ngFor="let localOS of localList4">{{localOS.card_name}}</option>
+            </select>
+            <div *ngIf="Payment.errors && (Payment.dirty ||Payment.touched)" class="error-tooltip  top">
+              <div [hidden]="Payment.hasError().required">Mode of Payment is required.
+              </div>
+            </div>
+          </div>
+
+          <label class="col-sm-5 pt-3 col-form-label">From Weight<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-7 pt-3">
+            <input type="text" class="form-control text-right" name="fromWeight" [(ngModel)]="credittarriffmaster.fromWeight"
+            pInputText pKeyFilter="num" >
+          </div>
+
+          <label class="col-sm-5 pt-3 col-form-label">To Weight<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-7 pt-3">
+              <input type="text" class="form-control text-right" name="toWeight" pInputText pKeyFilter="num" [(ngModel)]="credittarriffmaster.toWeight">
+            </div>
+
+            <label class="col-sm-5  pt-3 col-form-label">User</label>
+            <div class="col-sm-7 pt-3">
+              <input type="text" class="form-control" name="userId" pInputText pKeyFilter="alphanum"
+                [(ngModel)]="credittarriffmaster.userId">
+            </div>
+
+        </div>
+      </div>
+
+      
+      <div class="col-lg-4 pb-3 pt-3">
+        <div class="row">
+          <label class="col-sm-5 col-form-label">State<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-7">
+            <p-autoComplete  [(ngModel)]="credittarriffmaster.state" name="state" required [minLength]="1" [suggestions]="filteredList7" (completeMethod)="filterList7($event)"  (onSelect)="stateSelection($event)"  field="state_name" [dropdown]="true">
+              <ng-template let-state pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{state.state_name}}</div>
+                  </div>
+              </ng-template>
+          </p-autoComplete>
+          <!-----<p-autoComplete [minLength]="1" name="state_code" [(ngModel)]="credittarriffmaster.state_code"
+              [suggestions]="filteredList7" (completeMethod)="filterList7($event)" (onSelect)="stateSelection($event)" field="state_name"
+              [dropdown]="true" required>
+              <ng-template let-state pTemplate="item">
+                <div class="branch-item">
+                  <div>{{state.state_name}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>--->
+          </div>
+
+          <label class="col-sm-5 pt-3 col-form-label">Customer<span  class="required-asterisk">*</span></label>
+          <div class="col-sm-7 pt-3">
+            <p-autoComplete [minLength]="1" name="partyId" [(ngModel)]="credittarriffmaster.partyId"
+              [suggestions]="filteredParentlocationList3" (completeMethod)="filterParentlocationList3($event)"
+              field="party_name" [dropdown]="true" required>
+              <ng-template let-branch pTemplate="item">
+                <div class="branch-item">
+                  <div>{{branch.party_name}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+
+          <label class="col-sm-5 pt-3 col-form-label">Type</label>
+          <div class="col-sm-7 pt-3">
+            <p-autoComplete [minLength]="1" name="type" [(ngModel)]="credittarriffmaster.type"
+              [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)" field="type" [dropdown]="true">
+              <ng-template let-branch pTemplate="item">
+                <div class="branch-item">
+                  <div>{{branch.type}}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+
+          <label class="col-sm-5 pt-3 col-form-label">Doc Date</label>
+            <div class="col-sm-7 pt-3">
+              <p-calendar dateFormat="mm-dd-yy" hideOnDateTimeSelect="true" hourFormat="12" showTime="true"
+                [showIcon]="true" name="docDt" [(ngModel)]="credittarriffmaster.docDt"></p-calendar>
+            </div>
+
+            <label class="col-sm-5 pt-3 col-form-label">Doc Time</label>
+          <div class="col-sm-7 pt-3">
+            <p-calendar name="docTime" [(ngModel)]="credittarriffmaster.docTime" [timeOnly]="true" class="timer">
+            </p-calendar>
+          </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-3 pb-3 pt-3">
+      <div class="row">
+      <label class="col-sm-5 col-form-label">Branch<span  class="required-asterisk">*</span></label>
+      <div class="col-sm-7">
+     <!-- <ng-container *ngIf="!editmod">-->
+          <p-listbox [options]="filteredList5"  [(ngModel)]="credittarriffmaster.locationIds" [metaKeySelection]="false" [checkbox]="true"
+             [filter]="true" [multiple]="true" optionLabel="location_name" [listStyle]="{'max-height':'150px'}" [ngModelOptions]="{standalone: true}" [style]="{'width':'15rem'}">
+              <ng-template let-country pTemplate="item">
+              <div class="country-item">
+                <div>{{country.location_name}}</div>
+             </div>
+             </ng-template>
+          </p-listbox>
+     <!-- </ng-container>-->
+ 
+      </div>
+    </div>
+</div>
+  <form class="pt-4">
+  
+    <div>
+      <p-table [value]="products2" #detailtable dataKey="sno" editMode="row" [scrollable]="false" scrollHeight="250px">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width:2em">SNo.</th>
+            <th style="width:14em;text-align:center;">Location</th>
+            <th style="width:14em;text-align:center;">Rate</th>
+            <th style="width:14em;text-align:center;">Add Rate</th>
+            <th style="width:14em;text-align:center;">Add Qty</th>
+            <th style="width:10em">
+              <p-button label="New" icon="pi pi-plus" (click)="addvalue();"></p-button>
+            </th>
+            <th ></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="product">
+            <td style="width:2em">{{product.sno}}</td>
+            <td style="width:10em;" pEditableColumn>
+             
+              <p-cellEditor>
+               <ng-template pTemplate="input">
+                  <p-autoComplete [minLength]="1"  name="locationId{{ri}}"  [suggestions]="filteredList6" required
+                  (completeMethod)="filterList6($event)" [(ngModel)]="product.locationId" field="location_name"
+                  [dropdown]="true" [multiple]="false">
+                  <ng-template let-branch pTemplate="item">
+                    <div class="branch-item">
+                      <div>{{branch.location_name}}</div>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+
+
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{product.locationId.location_name}}
+                </ng-template>
+              </p-cellEditor>
+              
+             <!---<p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" name="locationId{{ri}}" [(ngModel)]="product.locationId" pInputText pKeyFilter="int">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{product.locationId}}
+                </ng-template>
+              </p-cellEditor>--->
+            </td>
+
+            <td style="width:10em;" pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input class="form-control text-right" pInputText type="text" name="rate{{ri}}" [(ngModel)]="product.rate" pInputText pKeyFilter="num">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{product.rate}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="width:10em;" pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input class="form-control text-right" pInputText type="text" name="addrate{{ri}}" [(ngModel)]="product.addrate" pInputText pKeyFilter="num">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{product.addrate}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="width:10em;" pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input  class="form-control text-right" pInputText type="text" name="addqty{{ri}}" [(ngModel)]="product.addqty" pInputText pKeyFilter="num"
+                    [disabled]="false">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{product.addqty}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+
+            <td style="text-align:center" class="d-flex py-2">
+              <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                (click)="onRowEditInit(product, ri)" class="p-button-rounded p-button-text"></button>
+              <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                (click)="onRowEditSave(product, ri)"
+                class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+              <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash" (click)="onRowDelete(product, ri)"
+                  class="p-button-rounded p-button-danger p-button-text"></button>
+            </td>
+            <td style="text-align:center">
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </form>
+  <p-toast position="bottom-center" key="bc"></p-toast>
+</div>

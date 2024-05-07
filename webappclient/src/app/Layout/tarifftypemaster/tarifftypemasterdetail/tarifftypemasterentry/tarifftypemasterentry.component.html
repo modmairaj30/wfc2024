@@ -1,0 +1,56 @@
+<div>
+  <form autocomplete="off"  #formForm="ngForm" (ngSubmit)="formForm.form.valid && save()" novalidate>
+    <p-toolbar [style]="{width: '95%',padding:'2px'}">
+      <div class="p-toolbar-group-left ">
+      </div>
+      <div class="p-toolbar-group-right">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="submit" label="Save"  icon="pi pi-check"
+              iconPos="left"></button>
+          </div>
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="reset" label="Reset" (click)="save()" icon="pi pi-undo"
+              iconPos="left"></button>
+          </div>
+        </div>
+      </div>
+    </p-toolbar>
+
+      <div class="panel-body">
+
+        <div class="row">
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Tariff Type</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="type" [(ngModel)]="tariffType.type" #type="ngModel" required
+                [maxlength]="20">
+              <div *ngIf="type.errors && (type.dirty || type.touched || formForm.submitted)" class="error-tooltip  top"
+                style=" right: -164px;">
+                <div [hidden]="type.hasError().required">Type is required.</div>
+                <div [hidden]="type.hasError().pattern">No leading space is allowed.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Weight</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="weight"  OnlyNumber='true'   [(ngModel)]="tariffType.weight" #weight="ngModel"
+                required [maxlength]="10">
+              <div *ngIf="weight.errors && (weight.dirty || weight.touched || formForm.submitted)" class="error-tooltip  top"
+                style=" right: -164px;">
+                <div [hidden]="weight.hasError().required">Weight is required.</div>
+                <div [hidden]="weight.hasError().pattern">No leading space is allowed.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  <p-toast position="bottom-center" key="bc"></p-toast>
+</div>

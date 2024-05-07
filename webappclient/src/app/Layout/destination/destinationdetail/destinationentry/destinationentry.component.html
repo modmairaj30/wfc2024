@@ -1,0 +1,124 @@
+<div>
+  <form autocomplete="off"  #formForm="ngForm" (ngSubmit)="formForm.form.valid && save()" novalidate>
+    <p-toolbar [style]="{width: '95%',padding:'2px'}">
+      <div class="p-toolbar-group-left ">
+      </div>
+      <div class="p-toolbar-group-right">
+        <div class="row">
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="submit" label="Save"  icon="pi pi-check"
+              iconPos="left"></button>
+          </div>
+          <div class="col-sm-6 ">
+            <button pButton pRipple type="reset" label="Reset" (click)="save()" icon="pi pi-undo"
+              iconPos="left"></button>
+          </div>
+        </div>
+      </div>
+    </p-toolbar>
+
+        <div class="panel-body">
+            <div class="row">
+               <div class="col-sm-4 form-group row">
+                    <label class="col-sm-4 col-form-label">Destination Name<span  class="required-asterisk">*</span></label>
+                    <div class="col-sm-8">
+                      <input type="text" id="txtProjectID" class="form-control"  required="required" 
+                      name="destinationName" #destinationName="ngModel" [(ngModel)]="destinationmaster.destination"
+                      [ngClass]="{'is-invalid': destinationName.invalid && (destinationName.dirty || destinationName.touched || formForm.submitted)}">
+                      <span class="text-danger" *ngIf="destinationName.invalid && (destinationName.dirty || destinationName.touched || formForm.submitted) && destinationName.errors!['required']">Destination Name is required</span>
+                    </div>
+                </div>
+            
+          <!---<div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Destination Name<span class="required-asterisk">*</span></label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="destinationName" pInputText pKeyFilter="alpha"
+                [(ngModel)]="destinationmaster.destination" #destinationName="ngModel" required [maxlength]="20">
+              <div *ngIf="destinationName.errors && (destinationName.dirty || destinationName.touched || formForm.submitted)"
+                class="error-tooltip  top" style=" right: -164px;">
+                <div [hidden]="destinationName.hasError().required">Destination Name is required.</div>
+                <div [hidden]="destinationName.hasError().pattern">No leading space is allowed.</div>
+              </div>
+            </div>
+          </div>--->
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Destination Code<span  class="required-asterisk">*</span></label>
+            
+
+            <div class="col-sm-8">
+              <input type="text"  class="form-control"  required="required" 
+              name="destinationCode" #destinationCode="ngModel" [(ngModel)]="destinationmaster.dest_code"
+              [ngClass]="{'is-invalid': destinationCode.invalid && (destinationCode.dirty || destinationCode.touched || formForm.submitted)}">
+              <span class="text-danger" *ngIf="destinationCode.invalid && (destinationCode.dirty || destinationCode.touched || formForm.submitted) && destinationCode.errors!['required']">Destination Code is required</span>
+            </div>
+
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Branch/Origin<span  class="required-asterisk">*</span></label>
+            <div class="col-sm-7">
+              <p-autoComplete [minLength]="1" name="branch" [(ngModel)]="destinationmaster.branch"
+                [suggestions]="filteredEmpList1" (completeMethod)="filterEmpList1($event)" field="location_name"
+                [dropdown]="true"  #branch="ngModel" required>
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}{{'-'}}{{branch.location_code}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+              <span class="text-danger" *ngIf="branch.invalid && (branch.dirty || branch.touched || formForm.submitted) && branch.errors!['required']">Branch or Origin  is required</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" hidden="true">
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Zone (Local/Remote)</label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" name="zone" [(ngModel)]="destinationmaster.zone"
+                [suggestions]="filteredEmpList2" (completeMethod)="filterEmpList2($event)" field="location_name"
+                [dropdown]="true">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.location_name}}{{'-'}}{{branch.location_code}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+
+            </div>
+          </div>
+
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">Parent Location</label>
+            <div class="col-sm-8">
+              <p-autoComplete [minLength]="1" name="parent_local" [(ngModel)]="destinationmaster.parent_local"
+                [suggestions]="filteredParentlocationList3" (completeMethod)="filterParentlocationList3($event)"
+                field="parent_name" [dropdown]="true">
+                <ng-template let-branch pTemplate="item">
+                  <div class="branch-item">
+                    <div>{{branch.parent_name}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+
+          <div class="col-sm-4 form-group row">
+            <label class="col-sm-4 col-form-label">STATE CODE</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control text-right" autocomplete="off" pInputText pKeyFilter="num" name="stateCode"
+                [(ngModel)]="destinationmaster.state_code" DefaultZero>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    
+  </form>
+  <p-toast position="bottom-center" key="bc"></p-toast>
+</div>

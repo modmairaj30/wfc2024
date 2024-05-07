@@ -1,0 +1,16 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" (click)="tabChange()" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Mode</a>
+    <ng-template ngbNavContent>
+      <app-modeentry [(mode)]="mode"></app-modeentry>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Mode @History</a>
+    <ng-template ngbNavContent>
+      <app-modehistory (editModeEntry)="editMode($event)"></app-modehistory>
+    </ng-template>
+  </li>
+
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
