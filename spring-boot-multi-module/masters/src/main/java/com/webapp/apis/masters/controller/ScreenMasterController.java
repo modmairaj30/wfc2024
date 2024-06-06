@@ -24,21 +24,23 @@ import com.webapp.apis.utility.ResponseWrapper;
 public class ScreenMasterController {
 	@Inject
 	ScreenMasterService ScreenMasterService;
+
 	@RequestMapping(value = "/getAllScreen", method = RequestMethod.GET)
 	public ResponseWrapper<List<ScreenMasterFormBean>> getAllScreen() {
 		List<ScreenMasterFormBean> forms = ScreenMasterService.getAllScreen();
 		return new ResponseWrapper<List<ScreenMasterFormBean>>(null, HttpStatus.OK, "", forms);
 	}
+
 	@RequestMapping(value = "/saveScreenMaster", method = RequestMethod.POST)
-	public ResponseWrapper<String> saveAuthorMaster( @RequestBody ScreenMasterFormBean screenMasterFormBean) {
+	public ResponseWrapper<String> saveAuthorMaster(@RequestBody ScreenMasterFormBean screenMasterFormBean) {
 		String flag = ScreenMasterService.saveScreenMaster(screenMasterFormBean);
 		List<WebAppError> error = new ArrayList<>();
 		WebAppException t = null;
 		if (flag != MastersConstants.SAVE) {
-			error.add(new WebAppError(MastersConstants.SAVE,MastersConstants.DB_ERROR,MastersConstants.SAVE_FAILURE));
-			throw new WebAppException(HttpStatus.BAD_REQUEST.toString(),MastersConstants.SAVE_FAILURE,error);
+			error.add(new WebAppError(MastersConstants.SAVE, MastersConstants.DB_ERROR, MastersConstants.SAVE_FAILURE));
+			throw new WebAppException(HttpStatus.BAD_REQUEST.toString(), MastersConstants.SAVE_FAILURE, error);
 		}
 		return new ResponseWrapper<String>(t, HttpStatus.OK, "", flag);
 	}
-		
+
 }

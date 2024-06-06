@@ -9,8 +9,7 @@ import com.webapp.apis.masters.model.ScreenMasterFormBean;
 @Service
 public interface ScreenMasterService {
 
-	
 	List<ScreenMasterFormBean> getAllScreen();
+
 	String saveScreenMaster(ScreenMasterFormBean screenMasterFormBean);
 }
-
