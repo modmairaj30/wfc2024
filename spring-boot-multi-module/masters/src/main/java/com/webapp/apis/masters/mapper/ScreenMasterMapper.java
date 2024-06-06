@@ -12,31 +12,36 @@ import com.webapp.apis.masters.model.ScreenMasterFormBean;
 import com.webapp.apis.masters.model.ScreenOperationMasterFormBean;
 
 public class ScreenMasterMapper {
-private static final Logger LOGGER = LoggerFactory.getLogger(ScreenMasterMapper.class);
-private static final String MasterList = null;
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScreenMasterMapper.class);
+	private static final String MasterList = null;
+
 	public static ScreenMaster mapFormToDomain(ScreenMasterFormBean screenMasterFormBean) {
-		ScreenMaster  screenMaster = new ScreenMaster();
+		ScreenMaster screenMaster = new ScreenMaster();
 		List<ScreenOperationMaster> screenOperationMasterobList = new ArrayList<>();
-		
+
 		screenMaster.setId(screenMasterFormBean.getId());
 		screenMaster.setScreenname(screenMasterFormBean.getScreenname());
 		screenMaster.setEnabled(screenMasterFormBean.getEnabled());
-		
+
 		List<ScreenOperationMasterFormBean> formdetailList = screenMasterFormBean.getScreenOperationList();
 		for (ScreenOperationMasterFormBean detailFormbeam : formdetailList) {
 			ScreenOperationMaster screenOperationMaster = new ScreenOperationMaster();
+			screenOperationMaster.setId(detailFormbeam.getId());
+			screenOperationMaster.setOperationId(detailFormbeam.getOperationId());
+			screenOperationMaster.setRoleId(detailFormbeam.getRoleId());
+			screenOperationMaster.setEnabled(detailFormbeam.getEnabled());
+			screenOperationMaster.setScreenId(detailFormbeam.getScreenId());
 			screenOperationMasterobList.add(screenOperationMaster);
-	}
+		}
 		screenMaster.setScreenOperationList(screenOperationMasterobList);
-		
-		return screenMaster ;
+
+		return screenMaster;
 	}
 
 	public static ScreenMasterFormBean mapDomainToForm(ScreenMaster screenMaster) {
 		ScreenMasterFormBean screenMasterFormBean = new ScreenMasterFormBean();
 		List<ScreenOperationMasterFormBean> screenOperationMasterFormBeanList = new ArrayList<>();
-				
+
 		screenMasterFormBean.setId(screenMaster.getId());
 		screenMasterFormBean.setScreenname(screenMaster.getScreenname());
 		screenMasterFormBean.setEnabled(screenMaster.getEnabled());
@@ -47,15 +52,15 @@ private static final String MasterList = null;
 			screenOperationMasterForm.setRoleId(detail.getRoleId());
 			screenOperationMasterForm.setScreenId(detail.getScreenId());
 			screenOperationMasterForm.setEnabled(detail.getEnabled());
-			
+
 			screenOperationMasterFormBeanList.add(screenOperationMasterForm);
-	}
+		}
 		screenMasterFormBean.setScreenOperationList(screenOperationMasterFormBeanList);
-		return screenMasterFormBean ;
-	
+		return screenMasterFormBean;
+
 	}
-	public static List<ScreenMasterFormBean> mapDomainListToFormList(
-			List<ScreenMaster> stockVerificationList) {
+
+	public static List<ScreenMasterFormBean> mapDomainListToFormList(List<ScreenMaster> stockVerificationList) {
 		List<ScreenMasterFormBean> stockVerificationFormBeanList = new ArrayList<>();
 		for (ScreenMaster stockVerification : stockVerificationList) {
 			stockVerificationFormBeanList.add(mapDomainToForm(stockVerification));
@@ -64,6 +69,4 @@ private static final String MasterList = null;
 
 	}
 
-
-	}
-
+}

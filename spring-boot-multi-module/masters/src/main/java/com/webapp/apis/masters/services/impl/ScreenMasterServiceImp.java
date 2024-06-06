@@ -1,10 +1,9 @@
 package com.webapp.apis.masters.services.impl;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,22 +22,19 @@ public class ScreenMasterServiceImp implements ScreenMasterService {
 	@Override
 	public List<ScreenMasterFormBean> getAllScreen() {
 		List<ScreenMaster> listscreenMaster = screenMasterRepository.findAllByOrderByIdDesc();
-			return ScreenMasterMapper.mapDomainListToFormList(listscreenMaster);	
+		return ScreenMasterMapper.mapDomainListToFormList(listscreenMaster);
 	}
+
 	@Transactional
 	@Override
 	public String saveScreenMaster(ScreenMasterFormBean screenMasterFormBean) {
 		ScreenMaster screenMaster = new ScreenMaster();
 
 		screenMaster = screenMasterRepository.save(ScreenMasterMapper.mapFormToDomain(screenMasterFormBean));
-		
+
 		if (screenMaster != null) {
 			return MastersConstants.SAVE;
 		}
 		return MastersConstants.FAIL;
 	}
-	}
-
-
-
-
+}

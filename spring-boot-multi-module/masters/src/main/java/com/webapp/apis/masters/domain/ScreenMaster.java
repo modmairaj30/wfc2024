@@ -21,9 +21,9 @@ import javax.persistence.Table;
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "id")
 		private Integer id;
+		
 		@OneToMany(cascade = CascadeType.ALL)
 		@JoinColumn(name = "screen_id", referencedColumnName = "id")
-		
 	    private List<ScreenOperationMaster> screenOperationList;
 		
 			
